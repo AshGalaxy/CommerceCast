@@ -4,7 +4,7 @@
 import { Sparkles } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useAuth, useUser } from '@/firebase';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
@@ -16,7 +16,7 @@ import Link from 'next/link';
 
 import { useAuthRedirect } from '@/hooks/use-redirect';
 
-export default function SignupPage() {
+function SignupForm() {
   const router = useRouter();
   const auth = useAuth();
   const { user, isUserLoading } = useUser();
@@ -153,3 +153,12 @@ export default function SignupPage() {
     </div>
   );
 }
+
+export default function SignupPage() {
+  return (
+    <Suspense fallback={<div className="flex min-h-screen items-center justify-center">Loading...</div>}>
+      <SignupForm />
+    </Suspense>
+  );
+}
+

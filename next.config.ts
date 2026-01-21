@@ -33,7 +33,9 @@ const nextConfig: NextConfig = {
         ],
     },
     experimental: {
-        allowedDevOrigins: ['https://*.cloudworkstations.dev'],
+        serverActions: {
+            bodySizeLimit: '2mb',
+        },
     },
 };
 

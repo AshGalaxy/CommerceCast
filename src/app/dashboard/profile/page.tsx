@@ -1,7 +1,6 @@
-
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useUser, useAuth } from '@/firebase';
 import { updateProfile } from 'firebase/auth';
@@ -26,14 +25,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import {
-
-} from '@/components/ui/alert-dialog';
 import { Loader2 } from 'lucide-react';
 
-
-
-export default function ProfilePage() {
+function ProfileContent() {
   const { toast } = useToast();
   const auth = useAuth();
   const { user, isUserLoading } = useUser();
@@ -43,9 +37,6 @@ export default function ProfilePage() {
   const [displayName, setDisplayName] = useState('');
   const [avatarUrl, setAvatarUrl] = useState<string | null | undefined>('');
   const [isUpdating, setIsUpdating] = useState(false);
-
-
-
 
   const syncStateFromUser = useCallback(() => {
     if (user) {
@@ -57,11 +48,9 @@ export default function ProfilePage() {
     }
   }, [user, isUserLoading]);
 
-
   useEffect(() => {
     syncStateFromUser();
   }, [syncStateFromUser]);
-
 
   const handleProfileUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -125,9 +114,6 @@ export default function ProfilePage() {
       setIsUpdating(false);
     }
   };
-
-
-
 
   const getAvatarFallback = (name: string | null | undefined) => {
     if (!name) return 'U';
@@ -232,9 +218,14 @@ export default function ProfilePage() {
           </form>
         </CardContent>
       </Card>
-
-
-
     </div>
+  );
+}
+
+export default function ProfilePage() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center p-8">Loading Profile...</div>}>
+      <ProfileContent />
+    </Suspense>
   );
 }

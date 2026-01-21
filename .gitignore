@@ -45,9 +45,15 @@ firebase-debug.log
 firestore-debug.log
 .firebase/
 
+# Data Files
+*.csv
+*.xlsx
+*.xls
+
 # Python Backend
 python-backend/venv/
 python-backend/win_env/
+
 python-backend/env/
 python-backend/__pycache__/
 python-backend/*.pyc
