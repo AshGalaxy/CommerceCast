@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+pandas
+prophet
+xgboost
+statsmodels
+scikit-learn

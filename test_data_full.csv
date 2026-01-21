@@ -1,0 +1,3 @@
+date,product_id,sales,revenue,region,sub_region,unit_cost,promotion_id,customer_age,customer_gender,payment_method
+2023-01-01,P001,10,100,North,Delhi,5,PROMO1,25,Male,Credit Card
+2023-01-02,P002,5,50,South,Bangalore,5,N/A,30,Female,UPI

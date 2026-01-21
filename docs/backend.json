@@ -1,0 +1,85 @@
+
+{
+  "entities": {
+    "GoogleSheetSync": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "GoogleSheetSync",
+      "type": "object",
+      "description": "Represents a synchronization configuration for importing data from a Google Sheet.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Google Sheet sync configuration."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to the User who owns this sync configuration. (Relationship: User 1:N GoogleSheetSync)"
+        },
+        "sheetId": {
+          "type": "string",
+          "description": "The ID of the Google Sheet to synchronize with."
+        },
+        "sheetName": {
+          "type": "string",
+          "description": "The name of the specific sheet within the Google Sheet to sync."
+        },
+        "lastSyncTime": {
+          "type": "string",
+          "description": "Timestamp of the last successful synchronization.",
+          "format": "date-time"
+        },
+        "syncInterval": {
+          "type": "number",
+          "description": "The interval (in minutes) at which the sheet should be automatically synchronized."
+        },
+        "dataMapping": {
+          "type": "string",
+          "description": "JSON string that stores the mapping configuration between the google sheet columns and the data entities."
+        },
+        "status": {
+          "type": "string",
+          "description": "The status of the GoogleSheetSync process."
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "sheetId",
+        "sheetName",
+        "syncInterval",
+        "dataMapping"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "google.com"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/users/{userId}/googleSheetSyncs/{googleSheetSyncId}",
+        "definition": {
+          "entityName": "GoogleSheetSync",
+          "schema": {
+            "$ref": "#/backend/entities/GoogleSheetSync"
+          },
+          "description": "Stores Google Sheet synchronization configurations for individual users. The path-based ownership ensures that only the authenticated user (userId) can access their configurations. Denormalized 'userId' allows for independent authorization, avoiding 'get()' calls in security rules. This structure supports secure 'list' operations by ensuring that all documents in the subcollection share the same security requirements, preventing unauthorized data exposure.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user who owns the Google Sheet sync configuration."
+            },
+            {
+              "name": "googleSheetSyncId",
+              "description": "The unique identifier of the Google Sheet sync configuration."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "This Firestore data structure is designed to support the Foresight Analytics application, focusing on secure, scalable, and debuggable data management, particularly for Google Sheet synchronization configurations. The structure adheres to the principles of Authorization Independence, Clarity of Intent, DBAC (Database-Based Access Control), and Rules are Not Filters (QAPs). It uses denormalization to avoid hierarchical authorization dependencies and supports secure list operations through structural segregation. Since all `GoogleSheetSync` documents are owned by a single user, a hierarchical path is used to easily and securely protect the data. It follows the pattern `/users/{userId}/google_sheet_syncs/{google_sheet_sync_id}`."
+  }
+}
