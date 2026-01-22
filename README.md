@@ -10,40 +10,66 @@
 
 Get a pulse on your business in real-time. The dashboard aggregates data from multiple sources to track vital KPIs like Revenue, Gross Margin, and Customer Lifetime Value (CLV).
 
-![Executive Dashboard Overview - Track Revenue and KPIs](path/to/screenshot_dashboard.png)
+**Key Metrics Tracked:**
+
+* **Total Revenue & Net Profit**: Real-time financial health monitoring.
+* **Customer Lifetime Value (CLV)**: Predictive analytics to identify high-value customer segments.
+* **Churn Rate Analysis**: Early warning system for customer attrition.
+* **Inventory Velocity**: Tracking how fast stock moves to optimize capital.
+
+![Executive Dashboard Overview](path/to/screenshot_dashboard.png)
 *Figure 1: The main command center displaying real-time financial health and activity.*
 
 ### 2. Advanced AI Forecasting
 
-Stop guessing the future. Our hybrid ensemble engine combines **Prophet** (Seasonality), **XGBoost** (Complex Trends), and **ARIMA** (Linear Patterns) to predict sales 30-90 days in advance with high accuracy.
+Stop guessing the future. Our hybrid ensemble engine uses a weighted model of three advanced algorithms:
 
-![Sales Forecasting Engine - Predicting Future Demand](path/to/screenshot_forecasting.png)
+* **Prophet**: Handles seasonality (weekly/yearly cycles) and holiday effects.
+* **XGBoost**: Captures complex, non-linear trends and feature interactions (e.g., price vs. volume).
+* **ARIMA**: Models linear dependencies and short-term trends.
+* **Ensemble Logic**: Dynamically weights predictions based on historical accuracy (MAPE) for maximum precision 30-90 days out.
+
+![Sales Forecasting Engine](path/to/screenshot_forecasting.png)
 *Figure 2: AI-driven sales projections distinguishing between organic trend and seasonal spikes.*
 
 ### 3. Inventory Intelligence
 
-Never run out of stock or hold dead inventory again. CommerceCast uses **ABC Analysis** to categorize products and automatically calculates **Reorder Points** based on lead time and safety stock.
+Never run out of stock or hold dead inventory again. CommerceCast uses automated tiered classification:
 
-![Inventory Management - Stock Levels and Reorder Alerts](path/to/screenshot_inventory.png)
+* **ABC Analysis**: Automatically segments products into A (High Value), B (Medium), and C (Low Value) tiers based on the Pareto Principle.
+* **Smart Reorder Points**: dynamic thresholds calculated using Lead Time Demand + Safety Stock.
+* **Stock Status**: Real-time classification into "Overstock", "Healthy", and "Low Stock" with specific action recommendations (e.g., "Run Promotion" for Overstock).
+
+![Inventory Management](path/to/screenshot_inventory.png)
 *Figure 3: Smart inventory table highlighting low-stock items and overstocked goods.*
 
 ### 4. Promotion Simulator
 
-Don't launch promotions blindly. Our simulator uses **Price Elasticity of Demand** to predict the outcome of a discount. See exactly how a 20% off sale will affect your Volume, Revenue, and ROI.
+Don't launch promotions blindly. Our simulator allows you to A/B test strategies before they go live.
 
-![Promotion Simulator - ROI Analysis](path/to/screenshot_promotion.png)
+* **Elasticity Modeling**: Uses Price Elasticity of Demand ($E=1.5$) to predict volume lift.
+* **ROI Calculator**: Accurately forecasts Revenue Impact, Margin/Profit changes, and Net ROI.
+* **Scenario Planning**: Compare a 10% discount vs. a 20% discount side-by-side.
+
+![Promotion Simulator](path/to/screenshot_promotion.png)
 *Figure 4: A/B testing a promotion to maximize profitability before launch.*
 
 ### 5. Automated AI Reports
 
-Generate professional, boardroom-ready PDF reports in seconds. The system uses **Google Gemini** to analyze your data and write executive summaries, analyzing trends and offering strategic recommendations.
+Generate professional, boardroom-ready PDF reports in seconds.
+
+* **Agentic Analysis**: Uses **Google Gemini 1.5 Pro** to read your raw data and write an executive summary.
+* **Strategic Insights**: AI identifies hidden trends and offers specific business recommendations.
+* **Visual Reports**: Exports high-resolution charts and text into a downloadable PDF.
 
 ![AI Generated PDF Report](path/to/screenshot_report.png)
 *Figure 5: High-quality PDF report automatically generated and ready for download.*
 
 ### 6. Seamless Data Integration
 
-No database? No problem. CommerceCast features a built-in **Google Sheets Sync** that keeps your dashboard updated automatically in the background.
+* **NoDatabase™ Architecture**: Leverages browser `localStorage` for zero-latency UI updates.
+* **Google Sheets Sync**: Built-in OAuth2 integration allowing you to use a simple Google Sheet as your backend CMS.
+* **CSV Support**: Drag-and-drop import for large historical datasets.
 
 ![Data Source Configuration](path/to/screenshot_datasources.png)
 *Figure 6: One-click connection to Google Sheets and CSV uploads.*
@@ -54,12 +80,12 @@ No database? No problem. CommerceCast features a built-in **Google Sheets Sync**
 
 We use a modern, performance-first stack:
 
-- **Frontend**: [Next.js 15](https://nextjs.org/) (App Router)
-- **UI System**: [Shadcn UI](https://ui.shadcn.com/) + [Tailwind CSS](https://tailwindcss.com/)
-- **Backend Computing**: [Python FastAPI](https://fastapi.tiangolo.com/) + Pandas/NumPy
-- **Machine Learning**: Facebook Prophet, XGBoost, Statsmodels
-- **AI Orchestration**: [Google Genkit](https://firebase.google.com/docs/genkit) + Gemini 1.5 Pro
-- **Deployment**: Vercel (Frontend) + Render (Backend)
+* **Frontend**: [Next.js 15](https://nextjs.org/) (App Router)
+* **UI System**: [Shadcn UI](https://ui.shadcn.com/) + [Tailwind CSS](https://tailwindcss.com/)
+* **Backend Computing**: [Python FastAPI](https://fastapi.tiangolo.com/) + Pandas/NumPy
+* **Machine Learning**: Facebook Prophet, XGBoost, Statsmodels
+* **AI Orchestration**: [Google Genkit](https://firebase.google.com/docs/genkit) + Gemini 1.5 Pro
+* **Deployment**: Vercel (Frontend) + Render (Backend)
 
 ---
 
@@ -90,24 +116,6 @@ python main.py
 ```
 
 Access the dashboard at `http://localhost:9002`.
-
----
-
-## 📦 Deployment
-
-For detailed production deployment instructions (Vercel & Render), please refer to our **[Deployment Guide](DEPLOYMENT.md)**.
-
----
-
-## 🤝 Contributing
-
-We welcome contributions!
-
-1. Fork the repo.
-2. Create a feature branch: `git checkout -b feature/new-insight`
-3. Commit your changes.
-4. Push to the branch.
-5. Submit a Pull Request.
 
 ---
 
