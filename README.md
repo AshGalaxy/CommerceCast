@@ -1,6 +1,6 @@
 # 🛒 CommerceCast: The Ultimate E-Commerce Analytics Platform
 
-**CommerceCast** is an intelligent, end-to-end analytics suite designed to transform raw e-commerce data into actionable insights. By leveraging **Agentic AI** and **Advanced Statistical Models**, it empowers businesses to predict trends, optimize inventory, and simulate growth strategies with precision.
+**CommerceCast** is an intelligent, end-to-end analytics suite designed to transform raw e-commerce data into actionable insights. By leveraging **Generative AI** and **Advanced Statistical Models**, it empowers businesses to predict trends, optimize inventory, and simulate growth strategies with precision.
 
 ---
 
@@ -58,7 +58,7 @@ Don't launch promotions blindly. Our simulator allows you to A/B test strategies
 
 Generate professional, boardroom-ready PDF reports in seconds.
 
-* **Agentic Analysis**: Uses **Google Gemini 1.5 Pro** to read your raw data and write an executive summary.
+* **Smart Analysis**: Uses **Google Gemini 1.5 Pro** to read your raw data and write an executive summary.
 * **Strategic Insights**: AI identifies hidden trends and offers specific business recommendations.
 * **Visual Reports**: Exports high-resolution charts and text into a downloadable PDF.
 
