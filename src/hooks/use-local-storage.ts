@@ -46,30 +46,34 @@ function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T | ((val
       window.localStorage.setItem(key, JSON.stringify(newValue));
       setStoredValue(newValue);
       // This custom event is used to sync state across different hooks using the same key.
-      window.dispatchEvent(new Event("local-storage"));
+
+      window.dispatchEvent(new CustomEvent("local-storage", { detail: { key } }));
     } catch (error) {
       console.warn(`Error setting localStorage key “${key}”:`, error);
     }
   };
-  
+
 
   useEffect(() => {
-    const handleStorageChange = () => {
+    const handleStorageChange = (event: StorageEvent | CustomEvent) => {
+      if (event instanceof StorageEvent && event.key !== key) return;
+      if (event instanceof CustomEvent && event.detail?.key !== key) return;
+
       setStoredValue(readValue());
     };
 
     if (isBrowser()) {
-        // Listen for changes from other tabs
-        window.addEventListener("storage", handleStorageChange);
-        // Listen for changes from the same tab (custom event)
-        window.addEventListener("local-storage", handleStorageChange);
+      // Listen for changes from other tabs
+      window.addEventListener("storage", handleStorageChange);
+      // Listen for changes from the same tab (custom event)
+      window.addEventListener("local-storage", handleStorageChange as EventListener);
     }
 
     return () => {
-        if (isBrowser()) {
-            window.removeEventListener("storage", handleStorageChange);
-            window.removeEventListener("local-storage", handleStorageChange);
-        }
+      if (isBrowser()) {
+        window.removeEventListener("storage", handleStorageChange);
+        window.removeEventListener("local-storage", handleStorageChange as EventListener);
+      }
     };
   }, [readValue]);
 
