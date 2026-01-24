@@ -17,7 +17,7 @@ Get a pulse on your business in real-time. The dashboard aggregates data from mu
 * **Churn Rate Analysis**: Early warning system for customer attrition.
 * **Inventory Velocity**: Tracking how fast stock moves to optimize capital.
 
-![Executive Dashboard Overview](path/to/screenshot_dashboard.png)
+![Executive Dashboard Overview](screenshots/dashboard.png)
 *Figure 1: The main command center displaying real-time financial health and activity.*
 
 ### 2. Advanced AI Forecasting
@@ -29,7 +29,7 @@ Stop guessing the future. Our hybrid ensemble engine uses a weighted model of th
 * **ARIMA**: Models linear dependencies and short-term trends.
 * **Ensemble Logic**: Dynamically weights predictions based on historical accuracy (MAPE) for maximum precision 30-90 days out.
 
-![Sales Forecasting Engine](path/to/screenshot_forecasting.png)
+![Sales Forecasting Engine](screenshots/forecasting.png)
 *Figure 2: AI-driven sales projections distinguishing between organic trend and seasonal spikes.*
 
 ### 3. Inventory Intelligence
@@ -40,7 +40,7 @@ Never run out of stock or hold dead inventory again. CommerceCast uses automated
 * **Smart Reorder Points**: dynamic thresholds calculated using Lead Time Demand + Safety Stock.
 * **Stock Status**: Real-time classification into "Overstock", "Healthy", and "Low Stock" with specific action recommendations (e.g., "Run Promotion" for Overstock).
 
-![Inventory Management](path/to/screenshot_inventory.png)
+![Inventory Management](screenshots/inventory.png)
 *Figure 3: Smart inventory table highlighting low-stock items and overstocked goods.*
 
 ### 4. Promotion Simulator
@@ -51,7 +51,7 @@ Don't launch promotions blindly. Our simulator allows you to A/B test strategies
 * **ROI Calculator**: Accurately forecasts Revenue Impact, Margin/Profit changes, and Net ROI.
 * **Scenario Planning**: Compare a 10% discount vs. a 20% discount side-by-side.
 
-![Promotion Simulator](path/to/screenshot_promotion.png)
+![Promotion Simulator](screenshots/promotion.png)
 *Figure 4: A/B testing a promotion to maximize profitability before launch.*
 
 ### 5. Automated AI Reports
@@ -62,7 +62,7 @@ Generate professional, boardroom-ready PDF reports in seconds.
 * **Strategic Insights**: AI identifies hidden trends and offers specific business recommendations.
 * **Visual Reports**: Exports high-resolution charts and text into a downloadable PDF.
 
-![AI Generated PDF Report](path/to/screenshot_report.png)
+![AI Generated PDF Report](screenshots/comparison.png)
 *Figure 5: High-quality PDF report automatically generated and ready for download.*
 
 ### 6. Seamless Data Integration
@@ -71,7 +71,7 @@ Generate professional, boardroom-ready PDF reports in seconds.
 * **Google Sheets Sync**: Built-in OAuth2 integration allowing you to use a simple Google Sheet as your backend CMS.
 * **CSV Support**: Drag-and-drop import for large historical datasets.
 
-![Data Source Configuration](path/to/screenshot_datasources.png)
+![Data Source Configuration](screenshots/datasources.png)
 *Figure 6: One-click connection to Google Sheets and CSV uploads.*
 
 ---
