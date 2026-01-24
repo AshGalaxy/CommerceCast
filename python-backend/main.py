@@ -2,13 +2,17 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List, Optional
-# import pandas as pd
-# import numpy as np
-# from prophet import Prophet
+import pandas as pd
+import numpy as np
+from prophet import Prophet
 # from statsmodels.tsa.arima.model import ARIMA
-# import xgboost as xgb
+import xgboost as xgb
 # from sklearn.metrics import mean_absolute_error, mean_squared_error
 # from sklearn.linear_model import LinearRegression
+import math
+import itertools
+import warnings
+import gc
 import math
 import itertools
 import warnings
@@ -79,6 +83,40 @@ def preprocess_data(df):
 
 def inverse_transform(values):
     return np.expm1(values)
+
+def train_predict_prophet(df, periods):
+    # Minimal Memory Configuration
+    # 1. uncertainty_samples=0 (Disables uncertainty interval calculation, huge RAM saver)
+    # 2. n_changepoints=5 (Reduces model complexity)
+    model = Prophet(
+        uncertainty_samples=0,
+        n_changepoints=5,
+        yearly_seasonality='auto',
+        weekly_seasonality='auto',
+        daily_seasonality='auto'
+    )
+    
+    # Add holidays if strictly necessary, but skipping for memory
+    # model.add_country_holidays(country_name='US') 
+    
+    model.fit(df)
+    
+    future = model.make_future_dataframe(periods=periods)
+    
+    # Predict
+    forecast = model.predict(future)
+    
+    # Extract results immediately and delete heavy objects
+    result_df = forecast[['ds', 'yhat']].tail(periods)
+    preds_log = result_df['yhat'].values
+    
+    # Aggressive Cleanup
+    del model
+    del forecast
+    del future
+    gc.collect()
+    
+    return inverse_transform(preds_log), result_df['ds'].values
 
 def train_predict_arima(history, periods):
     # Expanded Grid Search for ARIMA
