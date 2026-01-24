@@ -20,7 +20,17 @@ import warnings
 # Suppress warnings for cleaner logs
 warnings.filterwarnings("ignore")
 
+from fastapi.middleware.cors import CORSMiddleware
+
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], # Allow all origins for now to fix connection issues
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class SalesData(BaseModel):
     ds: str  # Date YYYY-MM-DD
