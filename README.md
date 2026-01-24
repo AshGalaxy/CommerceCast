@@ -54,16 +54,16 @@ Don't launch promotions blindly. Our simulator allows you to A/B test strategies
 ![Promotion Simulator](screenshots/promotion.png)
 *Figure 4: A/B testing a promotion to maximize profitability before launch.*
 
-### 5. Automated AI Reports
+### 5. Sales Comparison
 
-Generate professional, boardroom-ready PDF reports in seconds.
+Analyze performance across periods or benchmarks with precision.
 
-* **Smart Analysis**: Uses **Google Gemini 1.5 Pro** to read your raw data and write an executive summary.
-* **Strategic Insights**: AI identifies hidden trends and offers specific business recommendations.
-* **Visual Reports**: Exports high-resolution charts and text into a downloadable PDF.
+* **Time Travel Analysis**: Compare any two date ranges (e.g., "This Month vs. Last Month") to spot growth trends.
+* **Competitor Benchmarking**: Upload external CSV data to compare your sales against competitor benchmarks or industry standards.
+* **Metric Delta**: Automatic calculation of percentage change for Revenue, Units Sold, and Average Order Value (AOV).
 
-![AI Generated PDF Report](screenshots/comparison.png)
-*Figure 5: High-quality PDF report automatically generated and ready for download.*
+![Sales Comparison Dashboard](screenshots/comparison.png)
+*Figure 5: Side-by-side performance analysis with granular breakdowns by product and region.*
 
 ### 6. Seamless Data Integration
 
