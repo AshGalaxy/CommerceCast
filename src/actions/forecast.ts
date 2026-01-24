@@ -8,8 +8,9 @@ type ForecastData = {
 };
 
 export async function getPythonForecast(model: string, salesData: any[], periods: number): Promise<ForecastData[]> {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
     try {
-        const response = await fetch('http://localhost:8000/forecast', {
+        const response = await fetch(`${apiUrl}/forecast`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -57,8 +58,9 @@ export type ComparisonResult = {
 };
 
 export async function compareModels(models: string[], salesData: any[], periods: number): Promise<ComparisonResult> {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
     try {
-        const response = await fetch('http://localhost:8000/compare', {
+        const response = await fetch(`${apiUrl}/compare`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
