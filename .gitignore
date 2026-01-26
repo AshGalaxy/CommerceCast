@@ -61,3 +61,6 @@ python-backend/*.pyc
 __pycache__/
 
 DEPLOYMENT.md
+
+# Build Logs
+build_log*.txt
