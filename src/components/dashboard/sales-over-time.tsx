@@ -1,6 +1,6 @@
 'use client';
 
-import { Bar, Line, XAxis, YAxis, Tooltip, Legend, ComposedChart, ResponsiveContainer } from 'recharts';
+import { Bar, Line, XAxis, YAxis, Tooltip, Legend, ComposedChart } from 'recharts';
 import {
   Card,
   CardContent,
@@ -52,7 +52,6 @@ export function SalesOverTime({ title, description, icon, data }: SalesOverTimeP
       <CardContent className="pb-4">
         <div className="h-[300px]">
           <ChartContainer config={chartConfig} className="h-full w-full">
-            <ResponsiveContainer width="100%" height="100%">
               <ComposedChart accessibilityLayer data={data} margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
                 <XAxis
                   dataKey="name"
@@ -97,7 +96,6 @@ export function SalesOverTime({ title, description, icon, data }: SalesOverTimeP
                   yAxisId="left"
                 />
               </ComposedChart>
-            </ResponsiveContainer>
           </ChartContainer>
         </div>
       </CardContent>

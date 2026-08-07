@@ -1,5 +1,5 @@
 'use client';
-import { Pie, PieChart as RechartsPieChart, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import { Pie, PieChart as RechartsPieChart, Cell, Tooltip, Legend } from 'recharts';
 import {
   Card,
   CardContent,
@@ -106,7 +106,6 @@ export function SalesByRegion({ title, description, icon, data }: SalesByRegionP
         <CardContent>
           <div className="h-[300px]">
             <ChartContainer config={{}} className="h-full w-full">
-              <ResponsiveContainer width="100%" height="100%">
                 <RechartsPieChart>
                   <Tooltip
                     content={<ChartTooltipContent
@@ -146,8 +145,7 @@ export function SalesByRegion({ title, description, icon, data }: SalesByRegionP
                     ))}
                   </Pie>
                   <Legend layout="horizontal" verticalAlign="bottom" align="center" />
-                </RechartsPieChart>
-              </ResponsiveContainer>
+              </RechartsPieChart>
             </ChartContainer>
           </div>
         </CardContent>

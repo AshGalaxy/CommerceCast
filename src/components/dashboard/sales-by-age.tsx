@@ -1,6 +1,6 @@
 'use client';
 
-import { Bar, BarChart, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import { Bar, BarChart, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import {
     Card,
     CardContent,
@@ -47,26 +47,24 @@ export function SalesByAge({ title, description, icon, data }: SalesByAgeProps) 
             <CardContent className="pb-4">
                 <div className="h-[300px]">
                     <ChartContainer config={chartConfig} className="h-full w-full">
-                        <ResponsiveContainer width="100%" height="100%">
-                            <BarChart data={data} margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
-                                <XAxis
-                                    dataKey="name"
-                                    tickLine={false}
-                                    axisLine={false}
-                                    tickMargin={8}
-                                    label={{ value: 'Age Group', position: 'insideBottom', offset: -5 }}
-                                />
-                                <YAxis
-                                    tickLine={false}
-                                    axisLine={false}
-                                    tickMargin={8}
-                                    tickFormatter={(value) => new Intl.NumberFormat('en-IN', { notation: 'compact', compactDisplay: 'short' }).format(value)}
-                                    label={{ value: 'Sales', angle: -90, position: 'insideLeft', offset: 0 }}
-                                />
-                                <Tooltip content={<ChartTooltipContent />} />
-                                <Bar dataKey="value" fill="var(--color-value)" radius={[4, 4, 0, 0]} barSize={40} />
-                            </BarChart>
-                        </ResponsiveContainer>
+                        <BarChart data={data} margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+                            <XAxis
+                                dataKey="name"
+                                tickLine={false}
+                                axisLine={false}
+                                tickMargin={8}
+                                label={{ value: 'Age Group', position: 'insideBottom', offset: -5 }}
+                            />
+                            <YAxis
+                                tickLine={false}
+                                axisLine={false}
+                                tickMargin={8}
+                                tickFormatter={(value) => new Intl.NumberFormat('en-IN', { notation: 'compact', compactDisplay: 'short' }).format(value)}
+                                label={{ value: 'Sales', angle: -90, position: 'insideLeft', offset: 0 }}
+                            />
+                            <Tooltip content={<ChartTooltipContent />} />
+                            <Bar dataKey="value" fill="var(--color-value)" radius={[4, 4, 0, 0]} barSize={40} />
+                        </BarChart>
                     </ChartContainer>
                 </div>
             </CardContent>
