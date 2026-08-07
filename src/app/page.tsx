@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { Sparkles, Loader2, Sun, Moon, Menu, X, Github, Twitter, Linkedin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Logo } from '@/components/ui/Logo';
 import { useUser } from '@/firebase';
 import { useTheme } from '@/contexts/theme-context';
 import { Suspense, useState } from 'react';
@@ -85,9 +86,7 @@ function Navbar() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 shrink-0 group">
-            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center group-hover:scale-105 transition-transform duration-200 shadow-md shadow-blue-500/30">
-              <Sparkles className="h-3.5 w-3.5 text-white" />
-            </div>
+            <Logo className="w-7 h-7 text-primary group-hover:scale-105 transition-transform duration-200" />
             <span className="text-[15px] font-bold font-headline tracking-tight">CommerceCast</span>
             {/* Live dot */}
             <span className="hidden sm:flex items-center gap-1 text-[10px] font-medium text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
@@ -250,9 +249,7 @@ function Footer() {
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4 group w-fit">
-              <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center group-hover:scale-105 transition-transform shadow-md shadow-blue-500/20">
-                <Sparkles className="h-3.5 w-3.5 text-white" />
-              </div>
+              <Logo className="w-7 h-7 text-primary group-hover:scale-105 transition-transform" />
               <span className="text-[15px] font-bold font-headline tracking-tight">CommerceCast</span>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-[200px]">

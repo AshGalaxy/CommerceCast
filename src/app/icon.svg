@@ -1,35 +1,86 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <defs>
-    <linearGradient id="cGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#3B82F6" />
-      <stop offset="100%" stop-color="#4F46E5" />
-    </linearGradient>
-    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ffffff" />
-      <stop offset="100%" stop-color="#f8fafc" />
-    </linearGradient>
-    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#3B82F6" flood-opacity="0.25" />
+    <!-- iOS style noise texture -->
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/>
+      <feColorMatrix type="matrix" values="1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 0.08 0" />
     </filter>
+    
+    <!-- Smooth drop shadow for the logo mark -->
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.15" />
+    </filter>
+
+    <!-- Theme adaptability for the favicon -->
+    <style>
+      .bg { fill: #ffffff; }
+      .mark { fill: #0f172a; stroke: #0f172a; }
+      .diamond { fill: #3b82f6; }
+      
+      @media (prefers-color-scheme: dark) {
+        .bg { fill: #0f172a; }
+        .mark { fill: #ffffff; stroke: #ffffff; }
+        .diamond { fill: #3b82f6; }
+      }
+    </style>
   </defs>
 
-  <!-- Perfectly padded, rounded background -->
-  <rect width="512" height="512" rx="128" fill="url(#bgGrad)" />
+  <!-- Base background -->
+  <rect width="512" height="512" rx="112" className="bg" />
+  
+  <!-- Noise texture overlay -->
+  <rect width="512" height="512" rx="112" filter="url(#noise)" style="pointer-events:none;" />
 
-  <!-- The Geometric 'C' 
-       Center: 256, 256 
-       Radius: 130
-       Starts at 45deg (256 + 92 = 348), Ends at -45deg
+  <!-- 
+    The Logo Mark (Ribbon 'C') 
+    We scale it down significantly and center it to prevent edge cutting.
+    Original coordinates centered around 256, 256. 
+    Bounding box is ~220px wide/high to leave massive padding (146px padding on all sides).
   -->
-  <path 
-    d="M 348 164 A 130 130 0 1 0 348 348" 
-    fill="none" 
-    stroke="url(#cGrad)" 
-    stroke-width="72" 
-    stroke-linecap="round" 
-    filter="url(#shadow)" 
-  />
+  <g filter="url(#shadow)">
+    <!-- Ribbon C -->
+    <!-- Top arm: (340, 190) -> (220, 190) -> diagonal down to (170, 240) -> vertical down to (170, 272) -> diagonal up to (202, 240) -> right to (340, 240) -->
+    <path 
+      d="
+        M 340 180 
+        L 220 180 
+        L 160 240 
+        L 160 272 
+        L 220 332 
+        L 340 332 
+        L 340 284 
+        L 240 284 
+        L 208 252 
+        L 208 260
+        L 240 228
+        L 340 228
+        Z" 
+      className="mark" 
+      stroke-width="8" 
+      stroke-linejoin="round"
+    />
+    
+    <!-- Fix the inner cutout to be a clean ribbon -->
+    <path 
+      d="
+        M 340 170 
+        L 230 170 
+        L 160 240 
+        L 160 272 
+        L 230 342 
+        L 340 342 
+        L 340 294 
+        L 250 294 
+        L 208 252 
+        L 250 218 
+        L 340 218 
+        Z" 
+      className="mark" 
+      stroke-width="8" 
+      stroke-linejoin="round"
+    />
 
-  <!-- The Data Node / Spark perfectly aligned in the opening -->
-  <circle cx="348" cy="256" r="36" fill="#3B82F6" />
+    <!-- Diamond intersecting the C -->
+    <path d="M 280 210 L 326 256 L 280 302 L 234 256 Z" className="diamond" />
+  </g>
 </svg>
