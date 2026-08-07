@@ -179,14 +179,14 @@ export function HeroSection() {
               '--expand': expandProgress,
               width: 'calc(1024px + (100vw - 128px - 1024px) * var(--expand))',
               height: 'calc(550px + (100vh - 120px - 550px) * var(--expand))'
-            } as React.CSSProperties}
+            } as any}
             className="absolute z-20 flex flex-col"
           >
             {/* Edge glow */}
             <div className="absolute -inset-1 bg-gradient-to-tr from-blue-500 to-indigo-600 rounded-[24px] blur-xl opacity-25 dark:opacity-40 pointer-events-none" />
             
             <motion.div 
-              style={{ borderRadius: 'calc(20px + (24px - 20px) * var(--expand))' }}
+              style={{ borderRadius: 'calc(20px + (24px - 20px) * var(--expand))' } as any}
               className="relative w-full h-full border border-border/60 bg-background/60 backdrop-blur-3xl shadow-2xl overflow-hidden flex flex-col"
             >
               {/* Mask that fades out based on scroll */}
