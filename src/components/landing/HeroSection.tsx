@@ -151,65 +151,90 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-16 w-full max-w-5xl relative"
+          className="mt-16 w-full max-w-5xl relative z-20 group"
         >
-          {/* Edge glow */}
-          <div className="absolute -inset-1 bg-gradient-to-tr from-blue-500 to-indigo-600 rounded-[24px] blur-xl opacity-20 pointer-events-none" />
+          {/* Subtle surrounding glow */}
+          <div className="absolute -inset-2 bg-gradient-to-tr from-blue-500/10 via-transparent to-indigo-500/10 rounded-[32px] blur-2xl opacity-50 group-hover:opacity-70 transition-opacity duration-700" />
           
-          <div className="relative w-full rounded-t-[20px] border border-border/50 bg-background/40 backdrop-blur-2xl shadow-2xl overflow-hidden flex flex-col h-[380px]"
-            style={{ maskImage: 'linear-gradient(to bottom, white 70%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, white 70%, transparent 100%)' }}
-          >
-            {/* Top Bar */}
-            <div className="w-full h-12 border-b border-border/40 flex items-center px-4 gap-2 bg-muted/20">
-              <div className="w-3 h-3 rounded-full bg-red-500/80" />
-              <div className="w-3 h-3 rounded-full bg-amber-500/80" />
-              <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
-              <div className="flex-1" />
-              <div className="h-6 w-48 rounded-md bg-muted/40 border border-border/30" />
+          <div className="relative w-full aspect-video sm:h-[450px] rounded-2xl border border-white/10 dark:border-white/5 bg-background/50 dark:bg-[#0a0a0a]/50 backdrop-blur-3xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)] ring-1 ring-black/5 dark:ring-white/5 overflow-hidden flex flex-col">
+            
+            {/* Minimalist Mac Header */}
+            <div className="w-full h-10 border-b border-black/5 dark:border-white/5 flex items-center px-4 gap-2 bg-muted/10 dark:bg-muted/5">
+              <div className="flex gap-1.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-black/10 dark:bg-white/10" />
+                <div className="w-2.5 h-2.5 rounded-full bg-black/10 dark:bg-white/10" />
+                <div className="w-2.5 h-2.5 rounded-full bg-black/10 dark:bg-white/10" />
+              </div>
+              <div className="flex-1 flex justify-center">
+                <div className="h-4 w-32 rounded-md bg-black/5 dark:bg-white/5" />
+              </div>
+              <div className="w-10" /> {/* Spacer to balance header */}
             </div>
 
-            {/* Dashboard Content Mock */}
-            <div className="flex-1 p-6 flex gap-6">
-              {/* Sidebar */}
-              <div className="w-48 hidden md:flex flex-col gap-3">
-                <div className="h-8 rounded-md bg-primary/10 border border-primary/20 flex items-center px-3 gap-3">
-                  <BarChart2 className="w-4 h-4 text-primary" />
-                  <div className="w-16 h-2 rounded bg-primary/50" />
+            {/* High-Fidelity Dashboard Mock */}
+            <div className="flex-1 p-4 sm:p-6 flex gap-6 bg-gradient-to-br from-transparent to-muted/10">
+              
+              {/* Premium Sidebar */}
+              <div className="w-48 hidden md:flex flex-col gap-1.5">
+                <div className="h-7 w-20 rounded bg-primary/10 mb-4" />
+                <div className="h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center px-3 gap-3 text-primary">
+                  <BarChart2 className="w-3.5 h-3.5" />
+                  <div className="w-16 h-1.5 rounded-full bg-primary/50" />
                 </div>
-                <div className="h-8 rounded-md bg-muted/30 flex items-center px-3 gap-3">
-                  <Package className="w-4 h-4 text-muted-foreground/50" />
-                  <div className="w-20 h-2 rounded bg-muted-foreground/30" />
+                <div className="h-8 rounded-lg hover:bg-muted/30 transition-colors flex items-center px-3 gap-3">
+                  <Package className="w-3.5 h-3.5 text-muted-foreground/50" />
+                  <div className="w-20 h-1.5 rounded-full bg-muted-foreground/30" />
                 </div>
-                <div className="h-8 rounded-md bg-muted/30 flex items-center px-3 gap-3">
-                  <TrendingUp className="w-4 h-4 text-muted-foreground/50" />
-                  <div className="w-14 h-2 rounded bg-muted-foreground/30" />
+                <div className="h-8 rounded-lg hover:bg-muted/30 transition-colors flex items-center px-3 gap-3">
+                  <TrendingUp className="w-3.5 h-3.5 text-muted-foreground/50" />
+                  <div className="w-14 h-1.5 rounded-full bg-muted-foreground/30" />
                 </div>
               </div>
 
-              {/* Main Area */}
-              <div className="flex-1 flex flex-col gap-6">
-                {/* Top stats */}
-                <div className="grid grid-cols-3 gap-4">
-                  {[1, 2, 3].map((i) => (
-                    <div key={i} className="h-24 rounded-xl border border-border/40 bg-muted/10 p-4 flex flex-col justify-between">
-                      <div className="w-8 h-8 rounded-lg bg-background border border-border/50 flex items-center justify-center shadow-sm">
-                        <span className="w-4 h-4 text-primary" />
+              {/* Main Content Area */}
+              <div className="flex-1 flex flex-col gap-4 sm:gap-6">
+                
+                {/* Metric Cards */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+                  {[
+                    { color: "bg-blue-500", label: "w-16", value: "w-10" },
+                    { color: "bg-indigo-500", label: "w-20", value: "w-12" },
+                    { color: "bg-emerald-500", label: "w-14", value: "w-8", hidden: true }
+                  ].map((card, i) => (
+                    <div key={i} className={`h-20 sm:h-24 rounded-xl border border-black/5 dark:border-white/5 bg-background/50 p-3 sm:p-4 flex flex-col justify-between shadow-sm ${card.hidden ? 'hidden sm:flex' : 'flex'}`}>
+                      <div className={`w-6 h-6 sm:w-8 sm:h-8 rounded-lg ${card.color}/10 border border-${card.color}/20 flex items-center justify-center`}>
+                        <div className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full ${card.color}`} />
                       </div>
                       <div className="flex justify-between items-end">
-                        <div className="w-16 h-3 rounded-full bg-muted-foreground/30" />
-                        <div className="w-8 h-2 rounded-full bg-emerald-500/50" />
+                        <div className={`${card.label} h-2 rounded-full bg-muted-foreground/30`} />
+                        <div className={`${card.value} h-1.5 rounded-full ${card.color}/70`} />
                       </div>
                     </div>
                   ))}
                 </div>
 
-                {/* Chart Area */}
-                <div className="flex-1 rounded-xl border border-border/40 bg-muted/10 p-4 relative overflow-hidden">
-                  <svg className="w-full h-full text-primary opacity-30 drop-shadow-md" viewBox="0 0 100 30" preserveAspectRatio="none">
-                    <path d="M0,25 C20,20 40,30 50,15 C60,0 80,10 100,5 L100,30 L0,30 Z" fill="currentColor" fillOpacity="0.2" />
-                    <path d="M0,25 C20,20 40,30 50,15 C60,0 80,10 100,5" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-                  </svg>
-                  <div className="absolute inset-0 bg-gradient-to-t from-muted/10 to-transparent" />
+                {/* Sleek Chart Area */}
+                <div className="flex-1 rounded-xl border border-black/5 dark:border-white/5 bg-background/50 p-4 relative overflow-hidden flex flex-col gap-4 shadow-sm">
+                  <div className="flex justify-between items-center">
+                    <div className="w-24 h-2 rounded-full bg-muted-foreground/40" />
+                    <div className="flex gap-2">
+                      <div className="w-8 h-4 rounded bg-muted-foreground/20" />
+                      <div className="w-8 h-4 rounded bg-muted-foreground/10" />
+                    </div>
+                  </div>
+                  <div className="flex-1 relative w-full mt-2">
+                    {/* Minimalist Line Chart */}
+                    <svg className="absolute inset-0 w-full h-full text-blue-500 overflow-visible" preserveAspectRatio="none">
+                      <defs>
+                        <linearGradient id="chart-grad" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="currentColor" stopOpacity="0.15" />
+                          <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
+                        </linearGradient>
+                      </defs>
+                      <path d="M0,100 C10,95 20,60 30,70 C40,80 50,20 60,40 C70,60 80,10 90,30 C95,40 100,5 100,5" fill="none" stroke="currentColor" strokeWidth="2" vectorEffect="non-scaling-stroke" strokeLinecap="round" strokeLinejoin="round" />
+                      <path d="M0,100 C10,95 20,60 30,70 C40,80 50,20 60,40 C70,60 80,10 90,30 C95,40 100,5 100,5 L100,120 L0,120 Z" fill="url(#chart-grad)" />
+                    </svg>
+                  </div>
                 </div>
               </div>
             </div>
