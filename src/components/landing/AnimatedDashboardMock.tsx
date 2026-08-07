@@ -132,7 +132,7 @@ export function AnimatedDashboardMock() {
       >
         <MousePointer2 className="w-6 h-6 text-black dark:text-white fill-white dark:fill-black -rotate-12" strokeWidth={1.5} />
         <div className="bg-indigo-500 text-white text-[11px] px-2.5 py-0.5 rounded-full font-semibold shadow-md ml-6 mt-1 border border-indigo-400">
-          Alex (AI)
+          Kavya (AI)
         </div>
       </motion.div>
 
@@ -175,21 +175,21 @@ export function AnimatedDashboardMock() {
               animate={{
                 scale: isActive ? 1.02 : 1,
                 borderColor: isActive ? 'rgba(99, 102, 241, 0.5)' : 'rgba(255, 255, 255, 0.05)',
-                backgroundColor: isActive ? 'rgba(99, 102, 241, 0.05)' : 'rgba(0,0,0,0.2)'
+                backgroundColor: isActive ? 'rgba(99, 102, 241, 0.03)' : 'transparent'
               }}
-              className="rounded-xl border p-5 flex flex-col gap-4 shadow-sm transition-all duration-300"
+              className="rounded-xl border p-4 xl:p-5 flex flex-col gap-3 shadow-sm transition-all duration-300 bg-background/50"
             >
               <div className="flex justify-between items-center">
-                <span className={`text-sm font-semibold ${isActive ? 'text-indigo-500' : 'text-muted-foreground'}`}>
+                <span className={`text-xs xl:text-sm font-semibold ${isActive ? 'text-indigo-500' : 'text-foreground'}`}>
                   {kpi.title}
                 </span>
-                <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors duration-500 ${isActive ? 'bg-indigo-500/20' : 'bg-muted/50'}`}>
+                <div className={`w-7 h-7 xl:w-8 xl:h-8 rounded-lg flex items-center justify-center transition-colors duration-500 ${isActive ? 'bg-indigo-500/20' : 'bg-muted/30'}`}>
                   {kpi.icon}
                 </div>
               </div>
-              <div className="flex items-baseline gap-2">
-                <span className="text-2xl font-extrabold text-foreground tracking-tight">{kpi.value}</span>
-                <span className={`text-xs font-bold px-1.5 py-0.5 rounded-md ${kpi.positive ? 'text-emerald-700 bg-emerald-100 dark:text-emerald-400 dark:bg-emerald-950/50' : 'text-amber-700 bg-amber-100 dark:text-amber-400 dark:bg-amber-950/50'}`}>
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-lg xl:text-xl font-extrabold text-foreground tracking-tight leading-none">{kpi.value}</span>
+                <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-md leading-none flex items-center ${kpi.positive ? 'text-emerald-700 bg-emerald-100 dark:text-emerald-400 dark:bg-emerald-950/50' : 'text-amber-700 bg-amber-100 dark:text-amber-400 dark:bg-amber-950/50'}`}>
                   {kpi.trend}
                 </span>
               </div>
@@ -201,7 +201,7 @@ export function AnimatedDashboardMock() {
       {/* Charts Row */}
       <div className="flex gap-4 flex-1">
         {/* Main Line Chart */}
-        <div className="flex-[2] rounded-xl border border-border/50 bg-background/50 p-6 shadow-sm flex flex-col gap-6 relative overflow-visible">
+        <div className="flex-[2] rounded-xl border border-border/50 bg-background/50 p-6 shadow-sm flex flex-col gap-6 relative overflow-hidden">
           <div className="flex justify-between items-start z-10">
             <div className="flex flex-col items-start gap-1">
               <span className="text-base font-bold text-foreground capitalize">{activeKpi} Forecast</span>
@@ -213,7 +213,7 @@ export function AnimatedDashboardMock() {
             </span>
           </div>
           
-          <div className="flex-1 relative w-full mt-2 z-10 overflow-visible">
+          <div className="flex-1 relative w-full mt-2 z-10 overflow-hidden rounded-b-xl">
             {/* Grid Lines */}
             <div className="absolute inset-0 flex flex-col justify-between opacity-10 pointer-events-none">
               {[0, 1, 2, 3].map(i => (
@@ -241,7 +241,7 @@ export function AnimatedDashboardMock() {
               )}
             </AnimatePresence>
 
-            <svg className="absolute inset-0 w-full h-full text-indigo-500 overflow-visible" viewBox="0 0 400 120" preserveAspectRatio="none">
+            <svg className="absolute inset-0 w-full h-full text-indigo-500 overflow-hidden" viewBox="0 0 400 120" preserveAspectRatio="none">
               <defs>
                 <linearGradient id="chart-grad2" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0%" stopColor="currentColor" stopOpacity="0.3" />
