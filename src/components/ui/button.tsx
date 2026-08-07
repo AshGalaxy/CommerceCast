@@ -9,15 +9,15 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground shadow-sm hover:shadow-md hover:bg-primary/90 hover:-translate-y-0.5",
+        default: "bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 bg-[length:200%_auto] hover:bg-[position:right_center] transition-all duration-500 text-white shadow-[0_0_15px_rgba(79,70,229,0.3)] hover:shadow-[0_0_25px_rgba(79,70,229,0.5)] border border-white/10 hover:-translate-y-0.5",
         destructive:
-          "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 hover:-translate-y-0.5",
+          "bg-gradient-to-r from-red-500 to-rose-600 text-white shadow-sm hover:shadow-red-500/25 hover:bg-[position:right_center] hover:-translate-y-0.5",
         outline:
-          "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground hover:shadow-md hover:-translate-y-0.5",
+          "border border-border/60 bg-background/50 backdrop-blur-sm shadow-sm hover:border-blue-500/30 hover:bg-blue-500/5 hover:text-foreground hover:shadow-md hover:shadow-blue-500/10 hover:-translate-y-0.5",
         secondary:
-          "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 hover:-translate-y-0.5",
-        ghost: "hover:bg-accent hover:text-accent-foreground active:bg-accent/80",
-        link: "text-primary underline-offset-4 hover:underline",
+          "bg-secondary/50 backdrop-blur-sm border border-border/40 text-secondary-foreground shadow-sm hover:bg-secondary/80 hover:border-border/80 hover:-translate-y-0.5",
+        ghost: "hover:bg-blue-500/10 hover:text-blue-600 dark:hover:text-blue-400 transition-colors active:bg-blue-500/20",
+        link: "text-primary underline-offset-4 hover:underline hover:text-blue-600 transition-colors",
       },
       size: {
         default: "h-10 px-4 py-2",

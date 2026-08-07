@@ -137,16 +137,16 @@ function Navbar() {
                   <Link href="/login">Sign in</Link>
                 </Button>
 
-                {/* Shimmer CTA */}
+                {/* Premium Global CTA */}
                 <Button
                   asChild
                   size="sm"
-                  className="relative h-8 text-xs font-semibold px-4 overflow-hidden bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 shadow-md shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-px transition-all duration-200 border-0"
+                  className="relative h-8 text-xs font-semibold px-5 overflow-hidden group border-0"
                 >
                   <Link href="/signup">
                     <span className="relative z-10">Get started</span>
                     {/* Shimmer sweep */}
-                    <span className="absolute inset-0 -translate-x-full hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                    <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out bg-gradient-to-r from-transparent via-white/25 to-transparent z-20" />
                   </Link>
                 </Button>
               </>
