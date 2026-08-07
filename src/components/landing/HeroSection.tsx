@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight, ChevronDown, BarChart2, Package, TrendingUp, ShoppingBag, BrainCircuit } from 'lucide-react';
+import { ArrowRight, ChevronDown, BarChart2, Package, TrendingUp } from 'lucide-react';
+import { PiShoppingBagDuotone, PiBrainDuotone } from 'react-icons/pi';
 import { Button } from '@/components/ui/button';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
@@ -44,18 +45,16 @@ function Typewriter() {
 }
 
 const ECommerceIcon = () => (
-  <div className="inline-flex items-center justify-center w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 shrink-0 mx-1 md:mx-2 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-500 animate-float shadow-[0_0_20px_rgba(59,130,246,0.15)]">
-    <ShoppingBag className="w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10" strokeWidth={1.5} />
-  </div>
+  <PiShoppingBagDuotone 
+    className="inline-block w-[1.1em] h-[1.1em] -mt-[0.1em] mx-[0.1em] text-blue-500 drop-shadow-md animate-float" 
+  />
 );
 
 const BrainIcon = () => (
-  <div 
-    className="inline-flex items-center justify-center w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 shrink-0 mx-1 md:mx-2 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-500 animate-pulse shadow-[0_0_20px_rgba(99,102,241,0.15)]"
+  <PiBrainDuotone 
+    className="inline-block w-[1.15em] h-[1.15em] -mt-[0.1em] mx-[0.1em] text-indigo-500 drop-shadow-md animate-pulse" 
     style={{ animationDuration: '4s' }}
-  >
-    <BrainCircuit className="w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10" strokeWidth={1.5} />
-  </div>
+  />
 );
 
 
