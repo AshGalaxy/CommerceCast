@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight, ChevronDown, BarChart2, Package, TrendingUp } from 'lucide-react';
+import { ArrowRight, ChevronDown, BarChart2, Package, TrendingUp, ShoppingBag, BrainCircuit } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
@@ -44,45 +44,18 @@ function Typewriter() {
 }
 
 const ECommerceIcon = () => (
-  <svg 
-    viewBox="0 0 24 24" 
-    fill="none" 
-    xmlns="http://www.w3.org/2000/svg" 
-    className="inline-block w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 shrink-0 mx-1 md:mx-2 text-blue-500 stroke-current animate-float"
-  >
-    <path 
-      d="M3 9.5L6.5 3H17.5L21 9.5M3 9.5V21H21V9.5M3 9.5H21M8 13C8 15.2091 9.79086 17 12 17C14.2091 17 16 15.2091 16 13" 
-      strokeWidth="1.25" 
-      strokeLinecap="round" 
-      strokeLinejoin="round" 
-      opacity="0.9"
-    />
-  </svg>
+  <div className="inline-flex items-center justify-center w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 shrink-0 mx-1 md:mx-2 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-500 animate-float shadow-[0_0_20px_rgba(59,130,246,0.15)]">
+    <ShoppingBag className="w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10" strokeWidth={1.5} />
+  </div>
 );
 
 const BrainIcon = () => (
-  <svg 
-    viewBox="0 0 24 24" 
-    fill="none" 
-    xmlns="http://www.w3.org/2000/svg" 
-    className="inline-block w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 shrink-0 mx-1 md:mx-2 text-indigo-500 stroke-current animate-pulse" 
+  <div 
+    className="inline-flex items-center justify-center w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 shrink-0 mx-1 md:mx-2 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-500 animate-pulse shadow-[0_0_20px_rgba(99,102,241,0.15)]"
     style={{ animationDuration: '4s' }}
   >
-    <path 
-      d="M9.5 20H14.5M12 20V16M12 16C8.68629 16 6 13.3137 6 10C6 6.68629 8.68629 4 12 4C15.3137 4 18 6.68629 18 10C18 13.3137 15.3137 16 12 16ZM12 4V2" 
-      strokeWidth="1.25" 
-      strokeLinecap="round" 
-      strokeLinejoin="round" 
-      opacity="0.9"
-    />
-    <path 
-      d="M6 10H3M21 10H18M7.75736 14.2426L5.63604 16.364M18.364 16.364L16.2426 14.2426M16.2426 5.75736L18.364 3.63604M5.63604 3.63604L7.75736 5.75736" 
-      strokeWidth="1.25" 
-      strokeLinecap="round" 
-      strokeLinejoin="round" 
-      opacity="0.5"
-    />
-  </svg>
+    <BrainCircuit className="w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10" strokeWidth={1.5} />
+  </div>
 );
 
 
