@@ -45,132 +45,68 @@ function Typewriter() {
 
 const ECommerceIcon = () => (
   <svg 
-    viewBox="0 0 100 100" 
+    viewBox="0 0 24 24" 
     fill="none" 
     xmlns="http://www.w3.org/2000/svg" 
-    className="inline-block w-14 h-14 sm:w-20 sm:h-20 lg:w-[84px] lg:h-[84px] -mt-2 md:-mt-4 mx-2 text-blue-500 drop-shadow-[0_8px_16px_rgba(59,130,246,0.3)] animate-float"
+    className="inline-block w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 shrink-0 mx-1 md:mx-2 text-blue-500 stroke-current animate-float"
   >
-    <defs>
-      <linearGradient id="ecommerce-base" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.8" />
-        <stop offset="100%" stopColor="#2563eb" stopOpacity="0.2" />
-      </linearGradient>
-      <linearGradient id="ecommerce-highlight" x1="0%" y1="100%" x2="100%" y2="0%">
-        <stop offset="0%" stopColor="#60a5fa" />
-        <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
-      </linearGradient>
-      <filter id="ecommerce-glow" x="-20%" y="-20%" width="140%" height="140%">
-        <feGaussianBlur stdDeviation="4" result="blur" />
-        <feComposite in="SourceGraphic" in2="blur" operator="over" />
-      </filter>
-    </defs>
-    
-    {/* Base Platform / Grid */}
-    <path d="M50 85 L20 68 L50 51 L80 68 Z" fill="url(#ecommerce-base)" />
-    <path d="M50 85 L20 68 L50 51 L80 68 Z" stroke="#3b82f6" strokeWidth="1" strokeOpacity="0.5" />
-    <path d="M35 76.5 L65 59.5 M65 76.5 L35 59.5" stroke="#60a5fa" strokeWidth="0.5" strokeOpacity="0.3" />
-
-    {/* Front Left Face */}
-    <path d="M20 68 L20 48 L50 65 L50 85 Z" fill="url(#ecommerce-base)" opacity="0.7" />
-    <path d="M20 68 L20 48 L50 65 L50 85 Z" stroke="#2563eb" strokeWidth="1" strokeOpacity="0.3" />
-
-    {/* Front Right Face */}
-    <path d="M80 68 L80 48 L50 65 L50 85 Z" fill="url(#ecommerce-base)" opacity="0.4" />
-
-    {/* Top Box / Package */}
-    <path d="M50 55 L30 43 L50 31 L70 43 Z" fill="url(#ecommerce-highlight)" filter="url(#ecommerce-glow)" opacity="0.9" />
-    <path d="M50 55 L30 43 L50 31 L70 43 Z" stroke="#eff6ff" strokeWidth="1.5" />
-    
-    {/* Box Ribbons / Data lines */}
-    <path d="M40 37 L60 49 M60 37 L40 49" stroke="#bfdbfe" strokeWidth="2" opacity="0.8" />
-    <path d="M50 55 L50 43" stroke="#eff6ff" strokeWidth="1.5" />
-
-    {/* Left Panel of Box */}
-    <path d="M30 43 L30 25 L50 37 L50 55 Z" fill="url(#ecommerce-base)" />
-    
-    {/* Right Panel of Box */}
-    <path d="M70 43 L70 25 L50 37 L50 55 Z" fill="#1d4ed8" opacity="0.6" />
-
-    {/* Floating Data Nodes (Items) */}
-    <circle cx="50" cy="15" r="4" fill="#60a5fa" filter="url(#ecommerce-glow)" />
-    <path d="M50 21 L50 31" stroke="#60a5fa" strokeWidth="1" strokeDasharray="2 2" />
-    
-    <circle cx="22" cy="30" r="3" fill="#3b82f6" />
-    <path d="M22 34 L28 41" stroke="#3b82f6" strokeWidth="1" strokeDasharray="2 2" />
-
-    <circle cx="78" cy="30" r="3" fill="#3b82f6" />
-    <path d="M78 34 L72 41" stroke="#3b82f6" strokeWidth="1" strokeDasharray="2 2" />
+    <path 
+      d="M3 9.5L6.5 3H17.5L21 9.5M3 9.5V21H21V9.5M3 9.5H21M8 13C8 15.2091 9.79086 17 12 17C14.2091 17 16 15.2091 16 13" 
+      strokeWidth="1.25" 
+      strokeLinecap="round" 
+      strokeLinejoin="round" 
+      opacity="0.9"
+    />
   </svg>
 );
 
 const BrainIcon = () => (
   <svg 
-    viewBox="0 0 100 100" 
+    viewBox="0 0 24 24" 
     fill="none" 
     xmlns="http://www.w3.org/2000/svg" 
-    className="inline-block w-14 h-14 sm:w-20 sm:h-20 lg:w-[84px] lg:h-[84px] -mt-2 md:-mt-4 mx-2 text-indigo-500 drop-shadow-[0_8px_16px_rgba(99,102,241,0.3)] animate-pulse" 
+    className="inline-block w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 shrink-0 mx-1 md:mx-2 text-indigo-500 stroke-current animate-pulse" 
     style={{ animationDuration: '4s' }}
   >
-    <defs>
-      <linearGradient id="brain-grad-1" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#818cf8" />
-        <stop offset="50%" stopColor="#4f46e5" />
-        <stop offset="100%" stopColor="#312e81" />
-      </linearGradient>
-      <linearGradient id="brain-grad-2" x1="100%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" stopColor="#6366f1" />
-        <stop offset="100%" stopColor="#4338ca" />
-      </linearGradient>
-      <filter id="brain-glow" x="-20%" y="-20%" width="140%" height="140%">
-        <feGaussianBlur stdDeviation="3" result="blur" />
-        <feComposite in="SourceGraphic" in2="blur" operator="over" />
-      </filter>
-    </defs>
-    
-    {/* Brain Outer Silhouette */}
     <path 
-      d="M50 85 C30 85 15 70 15 50 C15 35 25 22 40 18 C45 16 55 16 60 18 C75 22 85 35 85 50 C85 70 70 85 50 85 Z" 
-      stroke="url(#brain-grad-1)" 
-      strokeWidth="2" 
-      strokeDasharray="4 4"
-      opacity="0.3"
-      fill="url(#brain-grad-2)"
-      fillOpacity="0.05"
+      d="M9.5 20H14.5M12 20V16M12 16C8.68629 16 6 13.3137 6 10C6 6.68629 8.68629 4 12 4C15.3137 4 18 6.68629 18 10C18 13.3137 15.3137 16 12 16ZM12 4V2" 
+      strokeWidth="1.25" 
+      strokeLinecap="round" 
+      strokeLinejoin="round" 
+      opacity="0.9"
     />
-    
-    {/* Left Hemisphere Core Circuitry */}
-    <path d="M50 20 C40 20 30 28 30 40 C30 55 40 65 50 70 M50 20 L50 70" stroke="url(#brain-grad-1)" strokeWidth="3" strokeLinecap="round" opacity="0.8" />
-    <path d="M30 40 C20 40 22 55 30 60" stroke="#6366f1" strokeWidth="2" strokeLinecap="round" opacity="0.6" />
-    <path d="M40 30 C35 30 35 40 40 45" stroke="#818cf8" strokeWidth="2" strokeLinecap="round" />
-    
-    {/* Right Hemisphere Core Circuitry */}
-    <path d="M50 20 C60 20 70 28 70 40 C70 55 60 65 50 70" stroke="url(#brain-grad-2)" strokeWidth="3" strokeLinecap="round" filter="url(#brain-glow)" />
-    <path d="M70 40 C80 40 78 55 70 60" stroke="#818cf8" strokeWidth="2" strokeLinecap="round" opacity="0.8" />
-    <path d="M60 30 C65 30 65 40 60 45" stroke="#6366f1" strokeWidth="2" strokeLinecap="round" />
+    <path 
+      d="M6 10H3M21 10H18M7.75736 14.2426L5.63604 16.364M18.364 16.364L16.2426 14.2426M16.2426 5.75736L18.364 3.63604M5.63604 3.63604L7.75736 5.75736" 
+      strokeWidth="1.25" 
+      strokeLinecap="round" 
+      strokeLinejoin="round" 
+      opacity="0.5"
+    />
+  </svg>
+);
 
-    {/* Neural Interconnections (Synapses) */}
-    <path d="M40 45 L50 50 L60 45" stroke="#a5b4fc" strokeWidth="1.5" strokeLinecap="round" opacity="0.8" />
-    <path d="M35 55 L50 60 L65 55" stroke="#c7d2fe" strokeWidth="1" strokeLinecap="round" opacity="0.6" />
-    <path d="M45 25 L50 30 L55 25" stroke="#a5b4fc" strokeWidth="1.5" strokeLinecap="round" />
-
-    {/* Synaptic Nodes */}
-    <circle cx="40" cy="45" r="3" fill="#e0e7ff" filter="url(#brain-glow)" />
-    <circle cx="60" cy="45" r="3" fill="#e0e7ff" filter="url(#brain-glow)" />
-    <circle cx="50" cy="50" r="3.5" fill="#fff" filter="url(#brain-glow)" />
-    
-    <circle cx="35" cy="55" r="2" fill="#c7d2fe" />
-    <circle cx="65" cy="55" r="2" fill="#c7d2fe" />
-    <circle cx="50" cy="60" r="2.5" fill="#e0e7ff" />
-    
-    <circle cx="45" cy="25" r="2" fill="#a5b4fc" />
-    <circle cx="55" cy="25" r="2" fill="#a5b4fc" />
-    <circle cx="50" cy="30" r="2" fill="#e0e7ff" />
-    
-    {/* Floating thought nodes */}
-    <circle cx="25" cy="25" r="1.5" fill="#818cf8" opacity="0.6" />
-    <circle cx="75" cy="20" r="2" fill="#818cf8" opacity="0.8" filter="url(#brain-glow)" />
-    <circle cx="85" cy="40" r="1" fill="#6366f1" opacity="0.5" />
-    <circle cx="15" cy="45" r="1.5" fill="#818cf8" opacity="0.4" />
+const BrainIcon = () => (
+  <svg 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    xmlns="http://www.w3.org/2000/svg" 
+    className="inline-block w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 shrink-0 mx-1 md:mx-2 text-indigo-500 stroke-current animate-pulse" 
+    style={{ animationDuration: '4s' }}
+  >
+    <path 
+      d="M9.5 20H14.5M12 20V16M12 16C8.68629 16 6 13.3137 6 10C6 6.68629 8.68629 4 12 4C15.3137 4 18 6.68629 18 10C18 13.3137 15.3137 16 12 16ZM12 4V2" 
+      strokeWidth="1.25" 
+      strokeLinecap="round" 
+      strokeLinejoin="round" 
+      opacity="0.9"
+    />
+    <path 
+      d="M6 10H3M21 10H18M7.75736 14.2426L5.63604 16.364M18.364 16.364L16.2426 14.2426M16.2426 5.75736L18.364 3.63604M5.63604 3.63604L7.75736 5.75736" 
+      strokeWidth="1.25" 
+      strokeLinecap="round" 
+      strokeLinejoin="round" 
+      opacity="0.5"
+    />
   </svg>
 );
 
@@ -222,11 +158,12 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, delay: 0.1 }}
-          className="max-w-5xl text-4xl sm:text-5xl md:text-6xl lg:text-[5rem] font-extrabold tracking-tighter font-headline leading-[1.04]"
+          className="flex flex-col items-center justify-center max-w-5xl text-4xl sm:text-5xl md:text-6xl lg:text-[5rem] font-extrabold tracking-tighter font-headline leading-[1.04]"
         >
-          The <ECommerceIcon /> e-commerce brain <BrainIcon />
-          <br />
-          <span className="bg-clip-text text-transparent bg-gradient-to-br from-blue-500 via-primary to-indigo-600">
+          <span className="inline-flex items-center flex-wrap justify-center md:flex-nowrap">
+            The <ECommerceIcon /> e-commerce brain <BrainIcon />
+          </span>
+          <span className="bg-clip-text text-transparent bg-gradient-to-br from-blue-500 via-primary to-indigo-600 mt-2">
             that never sleeps.
           </span>
         </motion.h1>
