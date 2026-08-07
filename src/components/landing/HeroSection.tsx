@@ -81,12 +81,10 @@ export function HeroSection() {
   const headerY = useTransform(smoothProgress, [0, 0.1], [0, -150]);
 
   // 2. Dashboard scroll up into center [0, 0.1]
-  const dashboardY = useTransform(smoothProgress, [0, 0.1], ["35vh", "5vh"]);
+  const dashboardY = useTransform(smoothProgress, [0, 0.1], ["60vh", "10vh"]);
 
   // 3. Dashboard expansions over [0.1, 0.35]
-  const mockWidth = useTransform(smoothProgress, [0.1, 0.35], ["1024px", "calc(100vw - 128px)"]);
-  const mockHeight = useTransform(smoothProgress, [0.1, 0.35], ["550px", "calc(100vh - 96px)"]);
-  const mockBorderRadius = useTransform(smoothProgress, [0.1, 0.35], ["20px", "24px"]);
+  const expandProgress = useTransform(smoothProgress, [0.1, 0.35], [0, 1]);
   const mockMaskOpacity = useTransform(smoothProgress, [0.1, 0.35], [1, 0]);
 
   return (
@@ -176,14 +174,19 @@ export function HeroSection() {
 
           {/* DASHBOARD LAYER */}
           <motion.div
-            style={{ width: mockWidth, height: mockHeight, y: dashboardY }}
+            style={{ 
+              y: dashboardY,
+              '--expand': expandProgress,
+              width: 'calc(1024px + (100vw - 128px - 1024px) * var(--expand))',
+              height: 'calc(550px + (100vh - 120px - 550px) * var(--expand))'
+            } as React.CSSProperties}
             className="absolute z-20 flex flex-col"
           >
             {/* Edge glow */}
             <div className="absolute -inset-1 bg-gradient-to-tr from-blue-500 to-indigo-600 rounded-[24px] blur-xl opacity-25 dark:opacity-40 pointer-events-none" />
             
             <motion.div 
-              style={{ borderRadius: mockBorderRadius }}
+              style={{ borderRadius: 'calc(20px + (24px - 20px) * var(--expand))' }}
               className="relative w-full h-full border border-border/60 bg-background/60 backdrop-blur-3xl shadow-2xl overflow-hidden flex flex-col"
             >
               {/* Mask that fades out based on scroll */}
