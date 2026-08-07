@@ -60,9 +60,6 @@ const BrainIcon = () => (
 
 
 export function HeroSection() {
-  const { scrollY } = useScroll();
-  const heroOpacity = useTransform(scrollY, [0, 600], [1, 0]);
-  const heroY = useTransform(scrollY, [0, 600], [0, 100]);
 
   return (
     <section className="relative w-full flex flex-col items-center pt-28 pb-10 overflow-hidden min-h-[110svh]">
@@ -88,7 +85,6 @@ export function HeroSection() {
 
       {/* Main content */}
       <motion.div
-        style={{ opacity: heroOpacity, y: heroY }}
         className="container relative z-10 flex flex-col items-center text-center gap-8 px-4"
       >
         {/* Eyebrow badge */}
@@ -156,7 +152,13 @@ export function HeroSection() {
           {/* Subtle surrounding glow */}
           <div className="absolute -inset-2 bg-gradient-to-tr from-blue-500/10 via-transparent to-indigo-500/10 rounded-[32px] blur-2xl opacity-50 group-hover:opacity-70 transition-opacity duration-700" />
           
-          <div className="relative w-full aspect-video sm:h-[450px] rounded-2xl border border-white/10 dark:border-white/5 bg-background/50 dark:bg-[#0a0a0a]/50 backdrop-blur-3xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)] ring-1 ring-black/5 dark:ring-white/5 overflow-hidden flex flex-col">
+          <div 
+            className="relative w-full h-[500px] sm:h-[700px] rounded-t-2xl border-t border-l border-r border-white/10 dark:border-white/5 bg-background/50 dark:bg-[#0a0a0a]/50 backdrop-blur-3xl shadow-[0_-20px_60px_-15px_rgba(0,0,0,0.1)] dark:shadow-[0_-20px_60px_-15px_rgba(0,0,0,0.5)] ring-1 ring-black/5 dark:ring-white/5 overflow-hidden flex flex-col"
+            style={{ 
+              maskImage: 'linear-gradient(to bottom, white 50%, transparent 100%)', 
+              WebkitMaskImage: 'linear-gradient(to bottom, white 50%, transparent 100%)' 
+            }}
+          >
             
             {/* Minimalist Mac Header */}
             <div className="w-full h-10 border-b border-black/5 dark:border-white/5 flex items-center px-4 gap-2 bg-muted/10 dark:bg-muted/5">
@@ -236,6 +238,21 @@ export function HeroSection() {
                     </svg>
                   </div>
                 </div>
+
+                {/* Second Row of Mock Components (to fill the extra height smoothly) */}
+                <div className="flex gap-4 opacity-50">
+                   <div className="flex-1 h-32 rounded-xl border border-black/5 dark:border-white/5 bg-background/30 p-4 shadow-sm flex flex-col gap-3">
+                      <div className="w-32 h-2 rounded-full bg-muted-foreground/30" />
+                      <div className="w-full h-1.5 rounded-full bg-muted-foreground/10 mt-4" />
+                      <div className="w-3/4 h-1.5 rounded-full bg-muted-foreground/10" />
+                      <div className="w-5/6 h-1.5 rounded-full bg-muted-foreground/10" />
+                   </div>
+                   <div className="w-1/3 h-32 rounded-xl border border-black/5 dark:border-white/5 bg-background/30 p-4 shadow-sm flex flex-col gap-3 hidden sm:flex">
+                      <div className="w-20 h-2 rounded-full bg-muted-foreground/30" />
+                      <div className="w-full flex-1 rounded-lg bg-blue-500/5 mt-2" />
+                   </div>
+                </div>
+
               </div>
             </div>
           </div>
