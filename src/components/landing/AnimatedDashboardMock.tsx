@@ -67,7 +67,6 @@ const cursorVariants = {
     transition: {
       duration: 15,
       repeat: Infinity,
-      ease: "easeInOut",
       times: [0, 0.15, 0.45, 0.75, 0.9, 1]
     }
   }
