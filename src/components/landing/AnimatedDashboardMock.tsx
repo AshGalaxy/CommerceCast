@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { motion, AnimatePresence, useMotionValueEvent, MotionValue, useTransform, useMotionValue } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Filter, DollarSign, ShoppingCart, Activity, Users, MousePointer2, TrendingUp, Loader2, Database, LayoutDashboard, Target } from 'lucide-react';
 
 const KPIS = [
@@ -58,7 +58,7 @@ const CATEGORIES = {
   ]
 };
 
-export function AnimatedDashboardMock({ scrollProgress }: { scrollProgress?: MotionValue<number> }) {
+export function AnimatedDashboardMock({ isExpanded }: { isExpanded?: boolean }) {
   const [activeKpi, setActiveKpi] = useState('revenue');
   const [showTooltip, setShowTooltip] = useState(false);
   const [dateActive, setDateActive] = useState(false);
@@ -69,55 +69,111 @@ export function AnimatedDashboardMock({ scrollProgress }: { scrollProgress?: Mot
   const [showLoadingOverlay, setShowLoadingOverlay] = useState(false);
   const [showDataSelection, setShowDataSelection] = useState(false);
 
-  // Fallback to 0 if not provided
-  const fallbackProgress = useMotionValue(0);
-  const progress = scrollProgress || fallbackProgress;
+  const [cursorState, setCursorState] = useState({ x: 100, y: 400, opacity: 0, scale: 1 });
 
-  useMotionValueEvent(progress, "change", (latest) => {
-    // 0.2 to 0.3: loading data input mock
-    setShowDataSelection(latest > 0.22 && latest < 0.28);
-    setShowLoadingOverlay(latest > 0.28 && latest < 0.33);
-    
-    // Sidebar slides in at 0.75
-    setShowSidebar(latest > 0.75);
-    
-    // Timeline conversions for interactions
-    setDateActive(latest > 0.35 && latest < 0.42);
-    setFilterActive(latest > 0.45 && latest < 0.52);
-    
-    if (latest > 0.55 && latest < 0.8) {
-      setActiveKpi('sales');
-    } else {
+  useEffect(() => {
+    if (!isExpanded) {
+      // Reset state if unexpanded
+      setShowSidebar(false);
+      setShowDataSelection(false);
+      setShowLoadingOverlay(false);
+      setCursorState({ x: 100, y: 400, opacity: 0, scale: 1 });
       setActiveKpi('revenue');
+      setDateActive(false);
+      setFilterActive(false);
+      setShowTooltip(false);
+      return;
     }
-    
-    setShowTooltip(latest > 0.65 && latest < 0.72);
-  });
 
-  // Cursor transforms mapped to scroll domain [0.2, 0.9]
-  const cursorX = useTransform(
-     progress, 
-     [0.34, 0.36, 0.4, 0.44, 0.46, 0.5, 0.54, 0.65, 0.7, 0.8, 0.82],
-     [100,  750,  750, 850,  850,  350, 350,  600,  650, 100, 100]
-  );
-  
-  const cursorY = useTransform(
-     progress, 
-     [0.34, 0.36, 0.4, 0.44, 0.46, 0.5, 0.54, 0.65, 0.7, 0.8, 0.82],
-     [400,  30,   100, 30,   100,  150, 150,  300,  280, 150, 150]
-  );
-  
-  const cursorOpacity = useTransform(
-     progress,
-     [0, 0.33, 0.34, 0.85, 0.86, 1],
-     [0, 0,    1,    1,    0,    0]
-  );
-  
-  const cursorScale = useTransform(
-     progress,
-     [0.36, 0.37, 0.38, 0.46, 0.47, 0.48, 0.54, 0.55, 0.56, 0.82, 0.83, 0.84],
-     [1,    0.8,  1,    1,    0.8,  1,    1,    0.8,  1,    1,    0.8,  1]
-  );
+    let isMounted = true;
+    
+    const runSequence = async () => {
+      while (isMounted) {
+        // Initial setup
+        setCursorState({ x: 100, y: 400, opacity: 0, scale: 1 });
+        await new Promise(r => setTimeout(r, 500));
+        if (!isMounted) return;
+
+        // Data Selection -> Loading
+        setShowDataSelection(true);
+        await new Promise(r => setTimeout(r, 1500));
+        if (!isMounted) return;
+        setShowDataSelection(false);
+        setShowLoadingOverlay(true);
+        await new Promise(r => setTimeout(r, 1000));
+        if (!isMounted) return;
+        setShowLoadingOverlay(false);
+        
+        // Show Sidebar
+        setShowSidebar(true);
+        await new Promise(r => setTimeout(r, 500));
+        if (!isMounted) return;
+
+        // Cursor appears and goes to Date Filter
+        setCursorState({ x: 750, y: 30, opacity: 1, scale: 1 });
+        await new Promise(r => setTimeout(r, 800));
+        if (!isMounted) return;
+        setCursorState(prev => ({ ...prev, scale: 0.8 }));
+        await new Promise(r => setTimeout(r, 150));
+        if (!isMounted) return;
+        setCursorState(prev => ({ ...prev, scale: 1 }));
+        setDateActive(true);
+
+        await new Promise(r => setTimeout(r, 800));
+        if (!isMounted) return;
+        
+        // Go to Scenario Filter
+        setCursorState({ x: 850, y: 30, opacity: 1, scale: 1 });
+        await new Promise(r => setTimeout(r, 800));
+        if (!isMounted) return;
+        setCursorState(prev => ({ ...prev, scale: 0.8 }));
+        await new Promise(r => setTimeout(r, 150));
+        if (!isMounted) return;
+        setCursorState(prev => ({ ...prev, scale: 1 }));
+        setFilterActive(true);
+
+        await new Promise(r => setTimeout(r, 800));
+        if (!isMounted) return;
+
+        // Click Sales KPI
+        setCursorState({ x: 350, y: 150, opacity: 1, scale: 1 });
+        await new Promise(r => setTimeout(r, 1000));
+        if (!isMounted) return;
+        setCursorState(prev => ({ ...prev, scale: 0.8 }));
+        await new Promise(r => setTimeout(r, 150));
+        if (!isMounted) return;
+        setCursorState(prev => ({ ...prev, scale: 1 }));
+        setActiveKpi('sales');
+
+        await new Promise(r => setTimeout(r, 1000));
+        if (!isMounted) return;
+
+        // Hover Graph
+        setCursorState({ x: 600, y: 300, opacity: 1, scale: 1 });
+        await new Promise(r => setTimeout(r, 800));
+        if (!isMounted) return;
+        setShowTooltip(true);
+
+        // Wait before resetting
+        await new Promise(r => setTimeout(r, 4000));
+        if (!isMounted) return;
+
+        // Reset
+        setShowTooltip(false);
+        setActiveKpi('revenue');
+        setDateActive(false);
+        setFilterActive(false);
+        setShowSidebar(false);
+        setCursorState({ x: 100, y: 400, opacity: 0, scale: 1 });
+        
+        await new Promise(r => setTimeout(r, 1000));
+      }
+    };
+
+    runSequence();
+    
+    return () => { isMounted = false; };
+  }, [isExpanded]);
 
   const activePaths = CHART_PATHS[activeKpi as keyof typeof CHART_PATHS];
   const activeCategories = CATEGORIES[activeKpi as keyof typeof CATEGORIES];
@@ -127,12 +183,13 @@ export function AnimatedDashboardMock({ scrollProgress }: { scrollProgress?: Mot
       
       {/* Animated Cursor */}
       <motion.div
-        style={{
-          x: cursorX,
-          y: cursorY,
-          opacity: cursorOpacity,
-          scale: cursorScale
+        animate={{
+          x: cursorState.x,
+          y: cursorState.y,
+          opacity: cursorState.opacity,
+          scale: cursorState.scale
         }}
+        transition={{ type: "spring", stiffness: 150, damping: 20 }}
         className="absolute z-50 pointer-events-none flex flex-col items-center drop-shadow-xl"
       >
         <MousePointer2 className="w-6 h-6 text-black dark:text-white fill-white dark:fill-black -rotate-12" strokeWidth={1.5} />

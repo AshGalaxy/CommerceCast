@@ -5,7 +5,7 @@ import { ArrowRight, ChevronDown, BarChart2, Package, TrendingUp, Filter, Dollar
 import { PiShoppingBagDuotone, PiBrainDuotone } from 'react-icons/pi';
 import { AnimatedDashboardMock } from './AnimatedDashboardMock';
 import { Button } from '@/components/ui/button';
-import { motion, useScroll, useTransform, AnimatePresence, useSpring } from 'framer-motion';
+import { motion, useScroll, useTransform, AnimatePresence, useSpring, useMotionValueEvent } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 const BRANDS = ['Shopify', 'Amazon', 'WooCommerce', 'Magento', 'BigCommerce'];
@@ -64,6 +64,7 @@ import { useRef } from 'react';
 
 export function HeroSection() {
   const containerRef = useRef<HTMLElement>(null);
+  const [isExpanded, setIsExpanded] = useState(false);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
@@ -76,16 +77,21 @@ export function HeroSection() {
     restDelta: 0.001
   });
 
-  // 1. Header scroll away [0, 0.1]
-  const headerOpacity = useTransform(smoothProgress, [0, 0.1], [1, 0]);
-  const headerY = useTransform(smoothProgress, [0, 0.1], [0, -150]);
+  // 1. Header scroll away [0, 0.3]
+  const headerOpacity = useTransform(smoothProgress, [0, 0.3], [1, 0]);
+  const headerY = useTransform(smoothProgress, [0, 0.3], [0, -150]);
 
-  // 2. Dashboard scroll up into center [0, 0.1]
-  const dashboardY = useTransform(smoothProgress, [0, 0.1], ["60vh", "10vh"]);
+  // 2. Dashboard scroll up into center [0, 0.3]
+  const dashboardY = useTransform(smoothProgress, [0, 0.3], ["85vh", "10vh"]);
 
-  // 3. Dashboard expansions over [0.1, 0.35]
-  const expandProgress = useTransform(smoothProgress, [0.1, 0.35], [0, 1]);
-  const mockMaskOpacity = useTransform(smoothProgress, [0.1, 0.35], [1, 0]);
+  // 3. Dashboard expansions over [0.3, 0.8]
+  const expandProgress = useTransform(smoothProgress, [0.3, 0.8], [0, 1]);
+  const mockMaskOpacity = useTransform(smoothProgress, [0.3, 0.6], [1, 0]);
+
+  useMotionValueEvent(expandProgress, "change", (latest) => {
+    if (latest > 0.9 && !isExpanded) setIsExpanded(true);
+    if (latest < 0.1 && isExpanded) setIsExpanded(false);
+  });
 
   return (
     <div className="relative w-full bg-background">
@@ -106,7 +112,7 @@ export function HeroSection() {
       </div>
 
       {/* SINGLE UNIFIED SCROLLYTELLING CONTAINER */}
-      <section ref={containerRef} className="relative w-full h-[400vh] z-20">
+      <section ref={containerRef} className="relative w-full h-[200vh] z-20">
         
         {/* Sticky viewport frame */}
         <div className="sticky top-0 h-screen w-full flex flex-col items-center overflow-hidden">
@@ -212,7 +218,7 @@ export function HeroSection() {
                 <div className="w-16" />
               </div>
 
-              <AnimatedDashboardMock scrollProgress={smoothProgress} />
+              <AnimatedDashboardMock isExpanded={isExpanded} />
             </motion.div>
           </motion.div>
           
