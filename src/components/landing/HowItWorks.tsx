@@ -29,9 +29,7 @@ const steps = [
 
 export function HowItWorks() {
   return (
-    <section className="relative w-full py-28 bg-muted/20 border-y border-border/40 overflow-hidden">
-      {/* Subtle top gradient glow */}
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+    <section className="relative w-full py-24 bg-background overflow-hidden">
 
       <div className="container px-4">
         {/* Header */}
@@ -82,8 +80,6 @@ export function HowItWorks() {
           </div>
         </div>
       </div>
-
-      <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
     </section>
   );
 }

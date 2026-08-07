@@ -259,7 +259,7 @@ export function StickyFeatures() {
       className="relative"
     >
       {/* ── Sticky container — the whole visible panel ── */}
-      <div className="sticky top-14 h-[calc(100vh-3.5rem)] overflow-hidden">
+      <div className="sticky top-14 h-screen overflow-hidden">
 
         {/* Section label */}
         <div className="absolute top-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">

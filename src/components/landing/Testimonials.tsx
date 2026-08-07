@@ -58,8 +58,7 @@ function Stars({ count }: { count: number }) {
 
 export function Testimonials() {
   return (
-    <section className="relative w-full py-28 bg-muted/20 border-y border-border/40 overflow-hidden">
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+    <section className="relative w-full py-24 bg-background overflow-hidden">
 
       <div className="container px-4">
         {/* Header */}
@@ -125,7 +124,6 @@ export function Testimonials() {
         </div>
       </div>
 
-      <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
     </section>
   );
 }

@@ -45,7 +45,7 @@ export function PricingSection() {
   const [isAnnual, setIsAnnual] = useState(true);
 
   return (
-    <section className="relative w-full py-28 bg-background overflow-hidden">
+    <section className="relative w-full py-24 bg-background overflow-hidden">
       <div className="container px-4">
         {/* Header */}
         <motion.div

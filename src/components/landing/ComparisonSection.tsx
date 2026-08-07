@@ -38,7 +38,7 @@ const rows = [
 
 export function ComparisonSection() {
   return (
-    <section className="relative w-full py-28 bg-background overflow-hidden">
+    <section className="relative w-full py-24 bg-background overflow-hidden">
       <div className="container px-4">
         {/* Header */}
         <motion.div
