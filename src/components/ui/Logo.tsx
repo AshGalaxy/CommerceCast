@@ -8,17 +8,33 @@ export function Logo({ className = '' }: { className?: string }) {
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
     >
-      {/* Outer Ribbon C */}
+      {/* 
+        Abstract Isometric Ribbon (The "Infinity Fold")
+        A perfectly symmetrical structural mark made of 45-degree angles.
+      */}
       <path 
-        d="M 85 25 L 35 25 L 15 50 L 35 75 L 85 75" 
+        d="
+          M 10 50 
+          L 30 30 
+          L 70 70 
+          L 90 50 
+          L 70 30 
+          L 30 70 
+          Z
+        " 
         stroke="currentColor" 
         strokeWidth="12" 
-        strokeLinecap="round" 
-        strokeLinejoin="round" 
+        strokeLinejoin="miter"
+        strokeMiterlimit="4"
       />
-      {/* Inner Data Node (Diamond) */}
+      
+      {/* 
+        The Core (Solid Diamond)
+        Sits exactly at the 50,50 intersection, creating an illusion of depth 
+        where the ribbons cross. 
+      */}
       <polygon 
-        points="60,35 75,50 60,65 45,50" 
+        points="50,38 62,50 50,62 38,50" 
         fill="currentColor" 
       />
     </svg>

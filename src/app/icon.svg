@@ -2,63 +2,36 @@
   <defs>
     <!-- Smooth drop shadow for the logo mark -->
     <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.15" />
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.3" />
     </filter>
-
-    <linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#3B82F6" />
-      <stop offset="100%" stop-color="#4F46E5" />
-    </linearGradient>
   </defs>
 
-  <!-- Solid brand background for universal visibility -->
-  <rect width="512" height="512" rx="112" fill="url(#brandGrad)" />
+  <!-- Deep Slate Background (Universal Premium SaaS styling) -->
+  <rect width="512" height="512" rx="128" fill="#020617" />
   
-  <g filter="url(#shadow)">
-    <!-- Ribbon C in pure white -->
+  <g transform="translate(156, 156) scale(2)" filter="url(#shadow)">
+    <!-- Abstract Origami Infinity Fold -->
     <path 
       d="
-        M 340 180 
-        L 220 180 
-        L 160 240 
-        L 160 272 
-        L 220 332 
-        L 340 332 
-        L 340 284 
-        L 240 284 
-        L 208 252 
-        L 208 260
-        L 240 228
-        L 340 228
-        Z" 
-      fill="#ffffff" 
-      stroke="#ffffff"
-      stroke-width="8" 
-      stroke-linejoin="round"
+        M 10 50 
+        L 30 30 
+        L 70 70 
+        L 90 50 
+        L 70 30 
+        L 30 70 
+        Z
+      " 
+      fill="none"
+      stroke="#ffffff" 
+      stroke-width="12" 
+      stroke-linejoin="miter"
+      stroke-miterlimit="4"
     />
     
-    <!-- Fix the inner cutout to be a clean ribbon -->
-    <path 
-      d="
-        M 340 170 
-        L 230 170 
-        L 160 240 
-        L 160 272 
-        L 230 342 
-        L 340 342 
-        L 340 294 
-        L 250 294 
-        L 208 252 
-        L 250 218 
-        L 340 218 
-        Z" 
+    <!-- Central Data Core -->
+    <polygon 
+      points="50,38 62,50 50,62 38,50" 
       fill="#ffffff" 
-      stroke="#ffffff"
-      stroke-width="8" 
-      stroke-linejoin="round"
     />
-
-    <!-- Diamond intersecting the C -->
-    <path d="M 280 210 L 326 256 L 280 302 L 234 256 Z" fill="#ffffff" />
   </g>
 </svg>
