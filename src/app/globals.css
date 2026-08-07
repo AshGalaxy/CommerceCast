@@ -79,11 +79,13 @@
   * {
     @apply border-border;
   }
+  html {
+    @apply scroll-smooth;
+  }
   body {
     @apply bg-background text-foreground;
-    background-color: hsl(0, 0%, 96.1%);
-  }
-  .dark body {
-    background-color: hsl(222.2, 84%, 4.9%);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
