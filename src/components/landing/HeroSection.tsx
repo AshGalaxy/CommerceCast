@@ -80,10 +80,10 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/8 px-4 py-1.5 text-sm font-medium text-primary backdrop-blur-sm shadow-[0_0_24px_rgba(59,130,246,0.15)]"
+          className="inline-flex items-center gap-2 rounded-full border border-blue-600/20 dark:border-blue-400/20 bg-blue-500/5 dark:bg-blue-500/10 px-4 py-1.5 text-[13px] font-semibold text-blue-700 dark:text-blue-300 backdrop-blur-xl shadow-[inset_0px_1px_0px_rgba(255,255,255,0.8),_0_4px_20px_rgba(59,130,246,0.15)] dark:shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1),_0_4px_20px_rgba(59,130,246,0.25)] ring-1 ring-black/5 dark:ring-white/5 cursor-default hover:shadow-[inset_0px_1px_0px_rgba(255,255,255,0.9),_0_6px_25px_rgba(59,130,246,0.25)] transition-all duration-300"
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-          AI Forecasting Engine v2.0 — Now live
+          <span className="w-1.5 h-1.5 rounded-full bg-blue-500 dark:bg-blue-400 animate-pulse" />
+          AI Forecasting Engine B2.0 is now live — We are now in Beta
         </motion.div>
 
         {/* Headline */}

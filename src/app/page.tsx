@@ -47,10 +47,9 @@ function NavLink({
     <Link
       href={href}
       onClick={onClick}
-      className="group relative text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 py-1"
+      className="text-[13px] font-medium text-muted-foreground hover:text-foreground hover:bg-foreground/5 dark:hover:bg-foreground/10 px-3 py-1.5 rounded-full transition-all duration-300 active:scale-95"
     >
       {children}
-      <span className="absolute inset-x-0 -bottom-0.5 h-px bg-primary origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out" />
     </Link>
   );
 }
