@@ -1,6 +1,6 @@
 'use client';
 
-import { Sparkles } from 'lucide-react';
+import { Sparkles, ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useAuth, useUser } from '@/firebase';
 import { useEffect, useState, Suspense } from 'react';
@@ -12,7 +12,7 @@ import { PasswordInput } from '@/components/ui/password-input';
 import { Label } from '@/components/ui/label';
 import { initiateEmailSignIn } from '@/firebase/non-blocking-login';
 import Link from 'next/link';
-
+import { motion } from 'framer-motion';
 import { useAuthRedirect } from '@/hooks/use-redirect';
 
 function LoginForm() {
@@ -22,6 +22,7 @@ function LoginForm() {
   const { toast } = useToast();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   useAuthRedirect(user, isUserLoading, '/dashboard');
 
@@ -38,13 +39,11 @@ function LoginForm() {
       }
 
       try {
-        toast({
-          title: 'Signing In...',
-          description: 'Please wait while we sign you in.',
-        });
+        setIsLoading(true);
         await initiateEmailSignIn(auth, email, password);
-        // Success is handled by useAuthRedirect or onAuthStateChanged
+        // Success is handled by useAuthRedirect
       } catch (error: any) {
+        setIsLoading(false);
         console.warn("Login error:", error);
         let errorMessage = "An unexpected error occurred.";
         if (error.code === 'auth/invalid-credential' || error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
@@ -70,69 +69,100 @@ function LoginForm() {
 
   if (isUserLoading || user) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center bg-gray-100 dark:bg-gray-900 p-4">
-        <p>Loading...</p>
+      <div className="flex min-h-screen items-center justify-center bg-background">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-100 dark:bg-gray-900 p-4">
-      <div className="w-full max-w-md">
-        <div className="flex flex-col items-center justify-center text-center">
-          <div className="mb-8 flex items-center justify-center rounded-full bg-primary p-4 text-primary-foreground">
-            <Sparkles className="h-10 w-10" />
+    <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background p-4 sm:p-8">
+      {/* Background decorations */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/5 via-background to-background" />
+      <div className="absolute -left-40 top-20 h-96 w-96 rounded-full bg-primary/10 blur-[100px]" />
+      <div className="absolute -right-40 bottom-20 h-96 w-96 rounded-full bg-blue-500/10 blur-[120px]" />
+
+      <Link href="/" className="absolute left-8 top-8 hidden sm:flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors z-10">
+        <ArrowLeft className="h-4 w-4" />
+        Back to home
+      </Link>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="w-full max-w-[440px] relative z-10"
+      >
+        <div className="mb-8 flex flex-col items-center text-center">
+          <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-primary/60 shadow-lg shadow-primary/20">
+            <Sparkles className="h-8 w-8 text-white" />
           </div>
-          <h1 className="mb-2 text-4xl font-bold text-gray-900 dark:text-gray-100 font-headline">
-            CommerceCast
+          <h1 className="mb-2 text-3xl font-extrabold tracking-tight font-headline">
+            Welcome back
           </h1>
-          <p className="mb-8 text-lg text-gray-600 dark:text-gray-400">
-            Sign in to access your dashboard.
+          <p className="text-muted-foreground font-medium">
+            Enter your credentials to access your dashboard
           </p>
         </div>
-        <Card>
-          <CardContent className="p-6">
-            <form onSubmit={handleSignIn} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+
+        <Card className="border-0 shadow-2xl bg-white/60 dark:bg-black/40 backdrop-blur-xl rounded-3xl overflow-hidden ring-1 ring-black/5 dark:ring-white/10">
+          <CardContent className="p-8">
+            <form onSubmit={handleSignIn} className="space-y-6">
+              <div className="space-y-3">
+                <Label htmlFor="email" className="text-xs uppercase tracking-wider text-muted-foreground font-bold">Email address</Label>
                 <Input
                   id="email"
                   type="email"
                   placeholder="name@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  className="bg-white/50 dark:bg-black/50"
                   required
                 />
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="password" className="text-xs uppercase tracking-wider text-muted-foreground font-bold">Password</Label>
+                  <Link href="#" className="text-xs font-semibold text-primary hover:underline">
+                    Forgot password?
+                  </Link>
+                </div>
                 <PasswordInput
                   id="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  className="bg-white/50 dark:bg-black/50"
                   required
                 />
               </div>
-              <Button type="submit" className="w-full">
-                Sign In
+              <Button type="submit" className="w-full h-12 text-base rounded-xl font-bold shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5" disabled={isLoading}>
+                {isLoading ? (
+                  <div className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                ) : (
+                  "Sign In"
+                )}
               </Button>
             </form>
-            <div className="mt-4 text-center text-sm">
+            <div className="mt-8 text-center text-sm font-medium text-muted-foreground">
               Don&apos;t have an account?{' '}
-              <Link href="/signup" className="underline">
+              <Link href="/signup" className="text-primary font-semibold hover:underline">
                 Sign up
               </Link>
             </div>
           </CardContent>
         </Card>
-      </div>
+      </motion.div>
     </div>
   );
 }
 
 export default function LoginPage() {
   return (
-    <Suspense fallback={<div className="flex min-h-screen items-center justify-center">Loading...</div>}>
+    <Suspense fallback={
+      <div className="flex min-h-screen items-center justify-center bg-background">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+      </div>
+    }>
       <LoginForm />
     </Suspense>
   );
