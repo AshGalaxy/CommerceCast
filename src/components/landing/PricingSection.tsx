@@ -93,7 +93,7 @@ export function PricingSection() {
               ))}
             </ul>
 
-            <Button asChild size="default" variant="outline" className="w-full h-10 text-sm font-semibold">
+            <Button asChild size="default" variant="outline" className="w-full font-semibold">
               <Link href="/signup">Get started free →</Link>
             </Button>
           </motion.div>
@@ -165,7 +165,7 @@ export function PricingSection() {
                 <Button
                   onClick={() => { if (notifyEmail) setSubmitted(true); }}
                   size="default"
-                  className="h-10 px-4 text-sm font-semibold shrink-0"
+                  className="font-semibold shrink-0"
                 >
                   Notify me
                 </Button>

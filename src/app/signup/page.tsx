@@ -172,9 +172,9 @@ function SignupForm() {
                   </motion.div>
                 )}
               </div>
-              <Button type="submit" className="w-full h-12 text-base rounded-xl font-bold shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5" disabled={isLoading}>
+              <Button type="submit" className="w-full h-9 text-[13px] rounded-lg font-bold shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5" disabled={isLoading}>
                 {isLoading ? (
-                  <div className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                  <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
                 ) : (
                   "Create Account"
                 )}

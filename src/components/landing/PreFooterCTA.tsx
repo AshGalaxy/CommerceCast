@@ -144,7 +144,7 @@ export function PreFooterCTA() {
           <Button
             asChild
             size="lg"
-            className="h-11 px-8 text-sm font-semibold hover:-translate-y-0.5 transition-all shadow-xl"
+            className="font-semibold hover:-translate-y-0.5 transition-all shadow-xl"
           >
             <Link href="/signup">
               Start free trial
@@ -155,7 +155,7 @@ export function PreFooterCTA() {
             asChild
             variant="outline"
             size="lg"
-            className="h-11 px-8 text-sm font-semibold transition-all bg-background border-border/50 hover:bg-muted/50"
+            className="font-semibold transition-all bg-background border-border/50 hover:bg-muted/50"
           >
             <Link href="/login">Talk to sales →</Link>
           </Button>
