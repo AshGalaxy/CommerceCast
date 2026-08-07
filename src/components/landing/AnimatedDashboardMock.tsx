@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence, useMotionValueEvent, MotionValue, useTransform } from 'framer-motion';
+import { motion, AnimatePresence, useMotionValueEvent, MotionValue, useTransform, useMotionValue } from 'framer-motion';
 import { Filter, DollarSign, ShoppingCart, Activity, Users, MousePointer2, TrendingUp, Loader2, Database, LayoutDashboard, Target } from 'lucide-react';
 
 const KPIS = [
@@ -70,7 +70,8 @@ export function AnimatedDashboardMock({ scrollProgress }: { scrollProgress?: Mot
   const [showDataSelection, setShowDataSelection] = useState(false);
 
   // Fallback to 0 if not provided
-  const progress = scrollProgress || new MotionValue();
+  const fallbackProgress = useMotionValue(0);
+  const progress = scrollProgress || fallbackProgress;
 
   useMotionValueEvent(progress, "change", (latest) => {
     // 0.2 to 0.3: loading data input mock
