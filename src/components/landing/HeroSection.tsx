@@ -69,47 +69,37 @@ export function HeroSection() {
     offset: ["start start", "end end"]
   });
 
-  const headerOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
-  const headerY = useTransform(scrollYProgress, [0, 0.15], [0, -50]);
-  
   // Dashboard expansions
-  const mockWidth = useTransform(scrollYProgress, [0, 0.2], ["1024px", "100vw"]);
-  const mockHeight = useTransform(scrollYProgress, [0, 0.2], ["550px", "100vh"]);
-  const mockBorderRadiusTop = useTransform(scrollYProgress, [0, 0.2], ["20px", "0px"]);
-  const mockBorderRadiusBottom = useTransform(scrollYProgress, [0.8, 1], ["0px", "20px"]); // Maybe for exit? Let's just keep it 0px
-  const mockY = useTransform(scrollYProgress, [0, 0.2], [0, -180]);
+  const mockWidth = useTransform(scrollYProgress, [0, 0.2], ["1024px", "calc(100vw - 48px)"]);
+  const mockHeight = useTransform(scrollYProgress, [0, 0.2], ["550px", "calc(100vh - 48px)"]);
+  const mockBorderRadius = useTransform(scrollYProgress, [0, 0.2], ["20px", "20px"]);
   const mockMaskOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+  
+  // Shift it down slightly to center it when it expands to full screen
+  const mockY = useTransform(scrollYProgress, [0, 0.2], [0, 24]); 
 
   return (
-    <section ref={containerRef} className="relative w-full h-[400vh] bg-background">
+    <div className="relative w-full bg-background overflow-hidden">
       
-      <div className="sticky top-0 h-screen w-full flex flex-col items-center pt-28 overflow-hidden">
-        
-        {/* Background layers */}
-        <div className="absolute inset-0 bg-background -z-10" />
-        
-        {/* Aurora Gradient */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
-          <div className="absolute -top-[10%] -left-[10%] w-[50%] h-[50%] rounded-full bg-blue-500/10 blur-[100px] mix-blend-screen opacity-50 dark:opacity-30 animate-pulse" style={{ animationDuration: '8s' }} />
-          <div className="absolute top-[20%] right-[0%] w-[40%] h-[60%] rounded-full bg-indigo-500/10 blur-[100px] mix-blend-screen opacity-50 dark:opacity-30 animate-pulse" style={{ animationDuration: '10s' }} />
-          <div className="absolute top-[10%] left-[30%] w-[40%] h-[40%] rounded-full bg-emerald-500/10 blur-[100px] mix-blend-screen opacity-30 dark:opacity-20 animate-pulse" style={{ animationDuration: '12s' }} />
-        </div>
-
-        {/* Subtle dot-grid */}
+      {/* Aurora Gradient Background - fixed to viewport so it stays behind everything */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
+        <div className="absolute -top-[10%] -left-[10%] w-[50%] h-[50%] rounded-full bg-blue-500/10 blur-[100px] mix-blend-screen opacity-50 dark:opacity-30 animate-pulse" style={{ animationDuration: '8s' }} />
+        <div className="absolute top-[20%] right-[0%] w-[40%] h-[60%] rounded-full bg-indigo-500/10 blur-[100px] mix-blend-screen opacity-50 dark:opacity-30 animate-pulse" style={{ animationDuration: '10s' }} />
+        <div className="absolute top-[10%] left-[30%] w-[40%] h-[40%] rounded-full bg-emerald-500/10 blur-[100px] mix-blend-screen opacity-30 dark:opacity-20 animate-pulse" style={{ animationDuration: '12s' }} />
         <div
           aria-hidden
-          className="absolute inset-0 opacity-[0.025] dark:opacity-[0.04] pointer-events-none -z-10"
+          className="absolute inset-0 opacity-[0.025] dark:opacity-[0.04]"
           style={{
             backgroundImage: `radial-gradient(circle, currentColor 1px, transparent 1px)`,
             backgroundSize: '40px 40px',
           }}
         />
+      </div>
 
-        {/* Main content - Fades out on scroll */}
-        <motion.div
-          style={{ opacity: headerOpacity, y: headerY }}
-          className="container relative z-10 flex flex-col items-center text-center gap-8 px-4"
-        >
+      {/* HEADER SECTION - Normal Document Flow */}
+      <section className="relative w-full flex flex-col items-center pt-28 pb-8 z-10">
+        <div className="container flex flex-col items-center text-center gap-8 px-4">
+          
           {/* Eyebrow badge */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -164,68 +154,61 @@ export function HeroSection() {
               <Link href="/login">Book a demo</Link>
             </Button>
           </motion.div>
-        </motion.div>
-
-        {/* Expanding Dashboard Mockup Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 60 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          style={{ width: mockWidth, height: mockHeight, y: mockY }}
-          className="mt-16 relative z-20 flex flex-col"
-        >
-          {/* Edge glow */}
-          <div className="absolute -inset-1 bg-gradient-to-tr from-blue-500 to-indigo-600 rounded-[24px] blur-xl opacity-25 dark:opacity-40 pointer-events-none" />
           
-          <motion.div 
-            style={{ 
-              borderTopLeftRadius: mockBorderRadiusTop,
-              borderTopRightRadius: mockBorderRadiusTop,
-              borderBottomLeftRadius: mockBorderRadiusTop,
-              borderBottomRightRadius: mockBorderRadiusTop,
-            }}
-            className="relative w-full h-full border border-border/60 bg-background/60 backdrop-blur-3xl shadow-2xl overflow-hidden flex flex-col"
-          >
-            {/* We apply a mask that fades out based on scroll so it loses the bottom fade when full screen */}
-            <motion.div 
-              className="absolute inset-0 z-50 pointer-events-none bg-background" 
-              style={{ 
-                opacity: mockMaskOpacity,
-                maskImage: 'linear-gradient(to top, black 0%, transparent 40%)', 
-                WebkitMaskImage: 'linear-gradient(to top, black 0%, transparent 40%)' 
-              }} 
-            />
+        </div>
+      </section>
 
-            {/* Top Bar */}
-            <div className="w-full h-12 border-b border-border/40 flex items-center px-4 gap-2 bg-muted/30 shrink-0">
-              <div className="w-3 h-3 rounded-full bg-red-500/90 shadow-sm" />
-              <div className="w-3 h-3 rounded-full bg-amber-500/90 shadow-sm" />
-              <div className="w-3 h-3 rounded-full bg-emerald-500/90 shadow-sm" />
-              <div className="flex-1 flex justify-center">
-                <div className="h-6 w-64 rounded-md bg-muted/50 border border-border/40 text-[11px] flex items-center justify-center text-muted-foreground font-medium tracking-wide">
-                  app.commercecast.ai/dashboard
-                </div>
-              </div>
-              <div className="w-16" />
-            </div>
-
-            <AnimatedDashboardMock scrollProgress={scrollYProgress} />
-          </motion.div>
-        </motion.div>
-
-        {/* Bouncing scroll indicator */}
-        <motion.div
-          style={{ opacity: headerOpacity }}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-muted-foreground/40 z-20"
-        >
+      {/* DASHBOARD SCROLLYTELLING SECTION */}
+      <section ref={containerRef} className="relative w-full h-[400vh] z-20">
+        
+        {/* Sticky Container */}
+        <div className="sticky top-0 h-screen w-full flex flex-col items-center pt-8 overflow-hidden">
+          
+          {/* Expanding Dashboard Mockup Card */}
           <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}
+            initial={{ opacity: 0, y: 60 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            style={{ width: mockWidth, height: mockHeight, y: mockY }}
+            className="relative z-20 flex flex-col"
           >
-            <ChevronDown className="w-5 h-5" />
+            {/* Edge glow */}
+            <div className="absolute -inset-1 bg-gradient-to-tr from-blue-500 to-indigo-600 rounded-[24px] blur-xl opacity-25 dark:opacity-40 pointer-events-none" />
+            
+            <motion.div 
+              style={{ borderRadius: mockBorderRadius }}
+              className="relative w-full h-full border border-border/60 bg-background/60 backdrop-blur-3xl shadow-2xl overflow-hidden flex flex-col"
+            >
+              {/* Mask that fades out based on scroll */}
+              <motion.div 
+                className="absolute inset-0 z-50 pointer-events-none bg-background" 
+                style={{ 
+                  opacity: mockMaskOpacity,
+                  maskImage: 'linear-gradient(to top, black 0%, transparent 40%)', 
+                  WebkitMaskImage: 'linear-gradient(to top, black 0%, transparent 40%)' 
+                }} 
+              />
+
+              {/* Top Bar */}
+              <div className="w-full h-12 border-b border-border/40 flex items-center px-4 gap-2 bg-muted/30 shrink-0">
+                <div className="w-3 h-3 rounded-full bg-red-500/90 shadow-sm" />
+                <div className="w-3 h-3 rounded-full bg-amber-500/90 shadow-sm" />
+                <div className="w-3 h-3 rounded-full bg-emerald-500/90 shadow-sm" />
+                <div className="flex-1 flex justify-center">
+                  <div className="h-6 w-64 rounded-md bg-muted/50 border border-border/40 text-[11px] flex items-center justify-center text-muted-foreground font-medium tracking-wide">
+                    app.commercecast.ai/dashboard
+                  </div>
+                </div>
+                <div className="w-16" />
+              </div>
+
+              <AnimatedDashboardMock scrollProgress={scrollYProgress} />
+            </motion.div>
           </motion.div>
-        </motion.div>
-      </div>
-    </section>
+          
+        </div>
+      </section>
+      
+    </div>
   );
 }
