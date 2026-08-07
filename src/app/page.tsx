@@ -84,16 +84,11 @@ function Navbar() {
       >
         <div className="container px-4 flex items-center gap-8 w-full">
 
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 shrink-0 group">
-            <Logo className="w-7 h-7 text-primary group-hover:scale-105 transition-transform duration-200" />
-            <span className="text-[15px] font-bold font-headline tracking-tight">CommerceCast</span>
-            {/* Live dot */}
-            <span className="hidden sm:flex items-center gap-1 text-[10px] font-medium text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              Live
-            </span>
-          </Link>
+          {/* Logo Container with Premium Material Styling */}
+          <div className="flex items-center gap-3 shrink-0 px-4 py-2 rounded-xl border border-blue-500/20 bg-gradient-to-br from-blue-500/10 via-background/50 to-indigo-500/10 backdrop-blur-xl shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),_0_8px_32px_rgba(0,0,0,0.08)] dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),_0_8px_32px_rgba(0,0,0,0.25)] ring-1 ring-white/20 dark:ring-white/10">
+            <Logo className="w-6 h-6 text-primary drop-shadow-sm" />
+            <span className="text-[16px] font-bold font-headline tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70">CommerceCast</span>
+          </div>
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-7">

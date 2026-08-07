@@ -1,28 +1,28 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <defs>
-    <!-- Smooth drop shadow for the logo mark -->
+    <!-- Material Drop Shadow for native elevation -->
     <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.3" />
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#000000" flood-opacity="0.4" />
     </filter>
+
+    <linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6" />
+      <stop offset="100%" stop-color="#4F46E5" />
+    </linearGradient>
+    
+    <linearGradient id="diamondGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#60A5FA" />
+      <stop offset="100%" stop-color="#818CF8" />
+    </linearGradient>
   </defs>
 
-  <!-- Deep Slate Background (Universal Premium SaaS styling) -->
-  <rect width="512" height="512" rx="128" fill="#020617" />
-  
-  <g transform="translate(156, 156) scale(2)" filter="url(#shadow)">
+  <!-- Scaled up 5x and centered to fill the tab perfectly. Transparent background. -->
+  <g transform="translate(6, 6) scale(5)" filter="url(#shadow)">
     <!-- Abstract Origami Infinity Fold -->
     <path 
-      d="
-        M 10 50 
-        L 30 30 
-        L 70 70 
-        L 90 50 
-        L 70 30 
-        L 30 70 
-        Z
-      " 
+      d="M 10 50 L 30 30 L 70 70 L 90 50 L 70 30 L 30 70 Z" 
       fill="none"
-      stroke="#ffffff" 
+      stroke="url(#brandGrad)" 
       stroke-width="12" 
       stroke-linejoin="miter"
       stroke-miterlimit="4"
@@ -31,7 +31,7 @@
     <!-- Central Data Core -->
     <polygon 
       points="50,38 62,50 50,62 38,50" 
-      fill="#ffffff" 
+      fill="url(#diamondGrad)" 
     />
   </g>
 </svg>
