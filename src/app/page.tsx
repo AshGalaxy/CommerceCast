@@ -195,7 +195,7 @@ function Navbar() {
 
 function LandingPageContent() {
   return (
-    <div className="flex flex-col min-h-screen bg-background text-foreground overflow-x-hidden relative">
+    <div className="flex flex-col min-h-screen bg-background text-foreground relative">
 
       {/* Global grain texture */}
       <div
