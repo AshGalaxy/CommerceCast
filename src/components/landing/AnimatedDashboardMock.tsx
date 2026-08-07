@@ -88,8 +88,7 @@ const cursorSequence = {
   transition: {
     duration: 16,
     repeat: Infinity,
-    times: [0, 0.1, 0.15, 0.3, 0.35, 0.5, 0.65, 0.8, 0.85, 1],
-    ease: "easeInOut"
+    times: [0, 0.1, 0.15, 0.3, 0.35, 0.5, 0.65, 0.8, 0.85, 1]
   }
 };
 
