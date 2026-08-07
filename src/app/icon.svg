@@ -1,20 +1,35 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <defs>
-    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0F172A" />
-      <stop offset="100%" stop-color="#020617" />
-    </linearGradient>
     <linearGradient id="cGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FFFFFF" />
-      <stop offset="100%" stop-color="#94A3B8" />
+      <stop offset="0%" stop-color="#3B82F6" />
+      <stop offset="100%" stop-color="#4F46E5" />
     </linearGradient>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f8fafc" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#3B82F6" flood-opacity="0.25" />
+    </filter>
   </defs>
-  
-  <rect width="512" height="512" rx="112" fill="url(#bgGrad)" />
-  
-  <!-- Minimalist, premium geometric C -->
-  <path d="M 340 170 A 130 130 0 1 0 340 342" fill="none" stroke="url(#cGrad)" stroke-width="64" stroke-linecap="square" />
-  
-  <!-- Subtle accent dot / spark -->
-  <circle cx="340" cy="170" r="32" fill="#3B82F6" />
+
+  <!-- Perfectly padded, rounded background -->
+  <rect width="512" height="512" rx="128" fill="url(#bgGrad)" />
+
+  <!-- The Geometric 'C' 
+       Center: 256, 256 
+       Radius: 130
+       Starts at 45deg (256 + 92 = 348), Ends at -45deg
+  -->
+  <path 
+    d="M 348 164 A 130 130 0 1 0 348 348" 
+    fill="none" 
+    stroke="url(#cGrad)" 
+    stroke-width="72" 
+    stroke-linecap="round" 
+    filter="url(#shadow)" 
+  />
+
+  <!-- The Data Node / Spark perfectly aligned in the opening -->
+  <circle cx="348" cy="256" r="36" fill="#3B82F6" />
 </svg>
