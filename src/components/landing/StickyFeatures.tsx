@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
-import { TrendingUp, Package, Zap, Activity, Box, Percent } from 'lucide-react';
+import { TrendingUp, Package, Zap, Activity, Box, Percent, MousePointer2 } from 'lucide-react';
 import { useState } from 'react';
 
 // ─── Feature data ─────────────────────────────────────────────────────────────
@@ -95,6 +95,18 @@ const VisualForecasting = () => {
         <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.1 }}
           className="absolute right-0 top-0 text-[10px] font-bold text-cyan-400 bg-cyan-400/10 border border-cyan-400/20 px-2 py-0.5 rounded">
           Forecast ↑
+        </motion.div>
+        {/* Fake Live Cursor */}
+        <motion.div
+          initial={{ opacity: 0, x: sx(pts.length - 4), y: sy(pts[pts.length - 4]) + 20 }}
+          animate={{ opacity: 1, x: sx(pts.length - 1) + 10, y: sy(pts[pts.length - 1]) + 10 }}
+          transition={{ delay: 1.5, duration: 1.2, ease: 'easeOut' }}
+          className="absolute z-10 drop-shadow-md text-emerald-400"
+        >
+          <MousePointer2 className="w-5 h-5 fill-emerald-500/20" />
+          <div className="bg-emerald-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded mt-1 shadow-sm">
+            AI Auto-Adjust
+          </div>
         </motion.div>
       </div>
       <div className="grid grid-cols-3 gap-2">

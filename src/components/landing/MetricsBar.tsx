@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useEffect, useState } from 'react';
-import { useInView } from 'framer-motion';
+import { useInView, motion } from 'framer-motion';
 
 const metrics = [
   { value: 500, suffix: '+', label: 'Brands on CommerceCast' },
