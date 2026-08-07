@@ -1,13 +1,10 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { GeistSans } from 'geist/font/sans';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
 import { FirebaseClientProvider } from '@/firebase';
 import { ThemeProvider } from '@/contexts/theme-context';
-
-
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
 export const metadata: Metadata = {
   title: 'CommerceCast',
@@ -25,7 +22,7 @@ export default function RootLayout({
 
       </head>
       <body
-        className={cn('min-h-screen bg-background font-body antialiased', inter.variable)}
+        className={cn('min-h-screen bg-background font-body antialiased', GeistSans.variable)}
         suppressHydrationWarning={true}
       >
         <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
