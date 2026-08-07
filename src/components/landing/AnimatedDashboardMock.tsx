@@ -176,12 +176,12 @@ export function AnimatedDashboardMock() {
                   transition={{ duration: 0.15 }}
                   className="absolute top-full mt-1.5 right-0 w-36 bg-background border border-border rounded-lg shadow-lg z-30 p-1 flex flex-col"
                 >
-                  <div className="px-2 py-1.5 text-xs text-muted-foreground hover:bg-muted/50 rounded-md cursor-pointer transition-colors">Last 7 Days</div>
-                  <div className="px-2 py-1.5 text-xs text-indigo-500 font-medium bg-indigo-500/10 rounded-md cursor-pointer transition-colors flex items-center justify-between">
+                  <div className="px-2 py-1.5 text-left text-xs text-muted-foreground hover:bg-muted/50 rounded-md cursor-pointer transition-colors">Last 7 Days</div>
+                  <div className="px-2 py-1.5 text-left text-xs text-indigo-500 font-medium bg-indigo-500/10 rounded-md cursor-pointer transition-colors flex items-center justify-between">
                     Last 30 Days
                     <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
                   </div>
-                  <div className="px-2 py-1.5 text-xs text-muted-foreground hover:bg-muted/50 rounded-md cursor-pointer transition-colors">Year to Date</div>
+                  <div className="px-2 py-1.5 text-left text-xs text-muted-foreground hover:bg-muted/50 rounded-md cursor-pointer transition-colors">Year to Date</div>
                 </motion.div>
               )}
             </AnimatePresence>
