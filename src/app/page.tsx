@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Sparkles, Loader2, Sun, Moon, Menu, X } from 'lucide-react';
+import { Sparkles, Loader2, Sun, Moon, Menu, X, Github, Twitter, Linkedin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useUser } from '@/firebase';
 import { useTheme } from '@/contexts/theme-context';
@@ -9,10 +9,13 @@ import { Suspense, useState } from 'react';
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
 
 import { HeroSection } from '@/components/landing/HeroSection';
+import { PainSection } from '@/components/landing/PainSection';
 import { StickyFeatures } from '@/components/landing/StickyFeatures';
-import { ComparisonSection } from '@/components/landing/ComparisonSection';
+import { MetricsBar } from '@/components/landing/MetricsBar';
 import { HowItWorks } from '@/components/landing/HowItWorks';
+import { BentoGrid } from '@/components/landing/BentoGrid';
 import { Testimonials } from '@/components/landing/Testimonials';
+import { ComparisonSection } from '@/components/landing/ComparisonSection';
 import { PricingSection } from '@/components/landing/PricingSection';
 import { FAQ } from '@/components/landing/FAQ';
 import { PreFooterCTA } from '@/components/landing/PreFooterCTA';
@@ -57,7 +60,7 @@ function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { scrollY } = useScroll();
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
   const { user, isUserLoading } = useUser();
 
   const isDark = resolvedTheme === 'dark';
@@ -82,10 +85,15 @@ function Navbar() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 shrink-0 group">
-            <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center group-hover:scale-105 transition-transform duration-200 shadow-md shadow-primary/30">
+            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center group-hover:scale-105 transition-transform duration-200 shadow-md shadow-blue-500/30">
               <Sparkles className="h-3.5 w-3.5 text-white" />
             </div>
             <span className="text-[15px] font-bold font-headline tracking-tight">CommerceCast</span>
+            {/* Live dot */}
+            <span className="hidden sm:flex items-center gap-1 text-[10px] font-medium text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              Live
+            </span>
           </Link>
 
           {/* Desktop nav */}
@@ -98,7 +106,7 @@ function Navbar() {
           {/* Right actions */}
           <div className="ml-auto flex items-center gap-2">
 
-            {/* Light / Dark toggle */}
+            {/* Theme toggle */}
             <button
               onClick={toggleTheme}
               aria-label="Toggle colour mode"
@@ -134,12 +142,18 @@ function Navbar() {
                 >
                   <Link href="/login">Sign in</Link>
                 </Button>
+
+                {/* Shimmer CTA */}
                 <Button
                   asChild
                   size="sm"
-                  className="h-8 text-xs font-semibold px-4 shadow-md shadow-primary/20 hover:shadow-primary/35 hover:-translate-y-px transition-all duration-200"
+                  className="relative h-8 text-xs font-semibold px-4 overflow-hidden bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 shadow-md shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-px transition-all duration-200 border-0"
                 >
-                  <Link href="/signup">Get started</Link>
+                  <Link href="/signup">
+                    <span className="relative z-10">Get started</span>
+                    {/* Shimmer sweep */}
+                    <span className="absolute inset-0 -translate-x-full hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                  </Link>
                 </Button>
               </>
             )}
@@ -178,7 +192,7 @@ function Navbar() {
                   <Button asChild variant="ghost" className="justify-start h-10 px-0 text-muted-foreground">
                     <Link href="/login" onClick={() => setMobileOpen(false)}>Sign in</Link>
                   </Button>
-                  <Button asChild className="mt-1 h-10">
+                  <Button asChild className="mt-1 h-10 bg-gradient-to-r from-blue-600 to-indigo-600 border-0">
                     <Link href="/signup" onClick={() => setMobileOpen(false)}>Get started →</Link>
                   </Button>
                 </>
@@ -188,6 +202,121 @@ function Navbar() {
         )}
       </AnimatePresence>
     </>
+  );
+}
+
+// ─── Footer ───────────────────────────────────────────────────────────────────
+
+const FOOTER_COLS = [
+  {
+    title: 'Product',
+    links: [
+      { label: 'Features', href: '#features' },
+      { label: 'How it works', href: '#how-it-works' },
+      { label: 'Pricing', href: '#pricing' },
+      { label: 'Changelog', href: '#' },
+      { label: 'Integrations', href: '#' },
+    ],
+  },
+  {
+    title: 'Resources',
+    links: [
+      { label: 'Documentation', href: '/guide' },
+      { label: 'API Reference', href: '#' },
+      { label: 'Guides', href: '#' },
+      { label: 'Status', href: '#' },
+    ],
+  },
+  {
+    title: 'Company',
+    links: [
+      { label: 'About', href: '#' },
+      { label: 'Blog', href: '#' },
+      { label: 'Careers', href: '#' },
+      { label: 'Privacy', href: '#' },
+      { label: 'Terms', href: '#' },
+    ],
+  },
+];
+
+function Footer() {
+  return (
+    <footer className="relative bg-background border-t border-border/20">
+      <div className="container px-4 pt-14 pb-8">
+
+        {/* Top — logo col + link cols */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-12">
+
+          {/* Brand */}
+          <div className="col-span-2 md:col-span-1">
+            <Link href="/" className="flex items-center gap-2 mb-4 group w-fit">
+              <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center group-hover:scale-105 transition-transform shadow-md shadow-blue-500/20">
+                <Sparkles className="h-3.5 w-3.5 text-white" />
+              </div>
+              <span className="text-[15px] font-bold font-headline tracking-tight">CommerceCast</span>
+            </Link>
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-[200px]">
+              The e-commerce brain that never sleeps.
+            </p>
+
+            {/* Social icons */}
+            <div className="flex items-center gap-3 mt-5">
+              {[
+                { Icon: Github, href: '#', label: 'GitHub' },
+                { Icon: Twitter, href: '#', label: 'Twitter' },
+                { Icon: Linkedin, href: '#', label: 'LinkedIn' },
+              ].map(({ Icon, href, label }) => (
+                <Link
+                  key={label}
+                  href={href}
+                  aria-label={label}
+                  className="w-8 h-8 rounded-full border border-border/50 flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-border hover:bg-muted/60 transition-all duration-200"
+                >
+                  <Icon className="w-3.5 h-3.5" />
+                </Link>
+              ))}
+            </div>
+
+            {/* Status indicator */}
+            <div className="mt-5 flex items-center gap-2 text-xs text-muted-foreground/60">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              All systems operational
+            </div>
+          </div>
+
+          {/* Link columns */}
+          {FOOTER_COLS.map((col) => (
+            <div key={col.title}>
+              <h4 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground/50 mb-4">
+                {col.title}
+              </h4>
+              <ul className="space-y-2.5">
+                {col.links.map((link) => (
+                  <li key={link.label}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-150"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom bar */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-8 border-t border-border/20">
+          <p className="text-xs text-muted-foreground/40">
+            © 2026 CommerceCast Inc. All rights reserved.
+          </p>
+          <p className="text-xs text-muted-foreground/30">
+            Built with Next.js · Framer Motion · Tailwind CSS
+          </p>
+        </div>
+      </div>
+    </footer>
   );
 }
 
@@ -208,52 +337,49 @@ function LandingPageContent() {
       <div className="h-14" />
 
       <main className="flex-1">
+        {/* 1. Hook */}
         <HeroSection />
 
+        {/* 2. Problem — cost of guessing */}
+        <PainSection />
+
+        {/* 3. Solution — sticky feature walkthrough */}
         <div id="features">
           <StickyFeatures />
         </div>
 
+        {/* 4. Trust signal — metrics */}
+        <MetricsBar />
+
+        {/* 5. How it works */}
         <div id="how-it-works">
           <HowItWorks />
         </div>
 
-        <ComparisonSection />
+        {/* 6. Everything included — bento */}
+        <BentoGrid />
+
+        {/* 7. Social proof */}
         <Testimonials />
 
+        {/* 8. Proof vs. competition */}
+        <ComparisonSection />
+
+        {/* 9. Pricing */}
         <div id="pricing">
           <PricingSection />
         </div>
 
+        {/* 10. FAQ */}
         <div id="faq">
           <FAQ />
         </div>
 
+        {/* 11. Final CTA */}
         <PreFooterCTA />
       </main>
 
-      {/* Footer */}
-      <footer className="relative z-10 bg-background">
-        <div className="h-px bg-border/20" />
-        <div className="container px-4 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-6 h-6 rounded-md bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-              <Sparkles className="h-3 w-3 text-primary" />
-            </div>
-            <span className="text-sm font-semibold text-muted-foreground">CommerceCast</span>
-          </Link>
-
-          <p className="text-xs text-muted-foreground/50 order-last sm:order-none">
-            © 2026 CommerceCast Inc. All rights reserved.
-          </p>
-
-          <nav className="flex items-center gap-6">
-            <NavLink href="/guide">Docs</NavLink>
-            <NavLink href="#">Terms</NavLink>
-            <NavLink href="#">Privacy</NavLink>
-          </nav>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

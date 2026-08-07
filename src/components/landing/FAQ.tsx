@@ -35,13 +35,38 @@ const faqs = [
     answer:
       'Absolutely. There are no lock-in contracts. You can downgrade or cancel from your billing dashboard at any time. If you cancel an annual plan, we prorate any unused months.',
   },
+  {
+    question: 'Does CommerceCast work for D2C brands and marketplace sellers?',
+    answer:
+      'Yes — CommerceCast is designed for both. D2C brands benefit from unified demand signals across their own store and social channels, while marketplace sellers get per-ASIN/SKU forecasting across Amazon, Flipkart, and more.',
+  },
+  {
+    question: 'How does the AI handle new products with no sales history?',
+    answer:
+      'CommerceCast uses category-level transfer learning — it borrows demand patterns from similar products in your catalogue and from anonymised benchmark data, giving you a credible starting forecast from day one. Accuracy sharpens after 2–4 weeks of real sales.',
+  },
+  {
+    question: 'Can I use CommerceCast alongside my existing ERP or 3PL?',
+    answer:
+      'Yes. CommerceCast integrates via REST API and webhooks with most major ERPs (SAP, Oracle NetSuite) and 3PLs (ShipBob, Fulfillment by Amazon, Delhivery). It reads and writes inventory events bidirectionally.',
+  },
+  {
+    question: 'What happens to my data if I cancel?',
+    answer:
+      'You retain full ownership of your data. On cancellation, we provide a complete export in CSV and JSON within 48 hours. Your data is permanently deleted from our systems within 30 days per our data retention policy.',
+  },
+  {
+    question: 'Is there a mobile app?',
+    answer:
+      'The web dashboard is fully responsive and works great on mobile browsers. A dedicated iOS and Android app is on our Q3 roadmap — join the Pro waitlist to get early access.',
+  },
 ];
 
 export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="relative w-full py-24 bg-background overflow-hidden">
+    <section id="faq" className="relative w-full py-24 bg-background overflow-hidden">
       <div className="container px-4">
         {/* Header */}
         <motion.div
@@ -49,12 +74,12 @@ export function FAQ() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          className="text-center mb-14"
         >
-          <p className="text-xs uppercase tracking-[0.2em] text-primary font-semibold mb-4">
+          <p className="text-[11px] uppercase tracking-[0.3em] text-primary font-semibold mb-5">
             FAQ
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tighter font-headline">
+          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter font-headline leading-[1.06]">
             Questions we hear often
           </h2>
         </motion.div>
@@ -69,14 +94,18 @@ export function FAQ() {
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.06, duration: 0.4 }}
+                transition={{ delay: i * 0.04, duration: 0.35 }}
                 className="border-b border-border/40 last:border-0"
               >
                 <button
                   onClick={() => setOpenIndex(isOpen ? null : i)}
                   className="w-full flex items-center justify-between gap-6 py-5 text-left group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
                 >
-                  <span className={`text-[15px] font-semibold transition-colors ${isOpen ? 'text-primary' : 'text-foreground group-hover:text-primary/80'}`}>
+                  <span
+                    className={`text-[15px] font-semibold transition-colors ${
+                      isOpen ? 'text-primary' : 'text-foreground group-hover:text-primary/80'
+                    }`}
+                  >
                     {faq.question}
                   </span>
                   <motion.div
