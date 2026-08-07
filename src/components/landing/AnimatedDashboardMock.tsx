@@ -58,58 +58,68 @@ const CATEGORIES = {
   ]
 };
 
-// Advanced Cursor Animation Sequence
-// X and Y coords mapped to relative container positions (assuming approx 1000x500 container)
+// Advanced Cursor Animation Sequence (20s timeline)
 const cursorSequence = {
   x: [
-    100, // start
-    850, // move to Filters button
-    850, // click wait
-    350, // move to Sales KPI
-    350, // click wait
-    600, // move to Chart line hover
-    650, // slide across chart
-    100, // move to Revenue KPI
-    100, // click wait
+    100, // 0: start
+    750, // 1: move to Date button
+    750, // 2: click Date button
+    750, // 3: wait for Date dropdown
+    850, // 4: move to Filters button
+    850, // 5: click Filters button
+    850, // 6: wait for Filters dropdown
+    350, // 7: move to Sales KPI
+    350, // 8: click wait
+    600, // 9: move to Chart line hover
+    650, // 10: slide across chart
+    100, // 11: move to Revenue KPI
+    100, // 12: click wait
   ],
   y: [
-    400, // start
-    30,  // Filters button
-    30,  // click wait
-    150, // Sales KPI
-    150, // click wait
-    300, // Chart line hover
-    280, // slide across chart
-    150, // Revenue KPI
-    150, // click wait
+    400, // 0: start
+    30,  // 1: Date button
+    30,  // 2: click Date
+    100, // 3: drop down interaction (hover over dropdown)
+    30,  // 4: Filters button
+    30,  // 5: click Filters
+    100, // 6: drop down interaction
+    150, // 7: Sales KPI
+    150, // 8: click wait
+    300, // 9: Chart line hover
+    280, // 10: slide across chart
+    150, // 11: Revenue KPI
+    150, // 12: click wait
   ],
-  opacity: [0, 1, 1, 1, 1, 1, 1, 1, 0],
-  scale:   [1, 1, 0.8, 1, 0.8, 1, 1, 1, 0.8, 1], // simulate clicks
+  opacity: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+  scale:   [1, 1, 0.8, 1, 1, 0.8, 1, 1, 0.8, 1, 1, 1, 0.8], // simulate clicks
   transition: {
-    duration: 16,
+    duration: 20,
     repeat: Infinity,
-    times: [0, 0.1, 0.15, 0.3, 0.35, 0.5, 0.65, 0.8, 0.85, 1]
+    times: [0, 0.08, 0.10, 0.18, 0.26, 0.28, 0.36, 0.45, 0.5, 0.6, 0.7, 0.85, 0.9]
   }
 };
 
 export function AnimatedDashboardMock() {
   const [activeKpi, setActiveKpi] = useState('revenue');
   const [showTooltip, setShowTooltip] = useState(false);
+  const [dateActive, setDateActive] = useState(false);
   const [filterActive, setFilterActive] = useState(false);
 
-  // Sync state changes with the cursor's timeline (16s total)
+  // Sync state changes with the cursor's timeline (20s total)
   useEffect(() => {
     const syncState = () => {
-      setTimeout(() => setFilterActive(true), 1600);   // @10% - cursor hits Filter
-      setTimeout(() => setFilterActive(false), 3000); 
-      setTimeout(() => setActiveKpi('sales'), 4800);   // @30% - cursor hits Sales KPI
-      setTimeout(() => setShowTooltip(true), 8000);    // @50% - cursor hovers Chart
-      setTimeout(() => setShowTooltip(false), 10400);  // @65% - cursor leaves Chart
-      setTimeout(() => setActiveKpi('revenue'), 12800);// @80% - cursor hits Revenue KPI
+      setTimeout(() => setDateActive(true), 2000);     // @10% - cursor clicks Date
+      setTimeout(() => setDateActive(false), 4400);    // @22% - cursor leaves Date dropdown
+      setTimeout(() => setFilterActive(true), 5600);   // @28% - cursor clicks Filters
+      setTimeout(() => setFilterActive(false), 8000);  // @40% - cursor leaves Filters dropdown
+      setTimeout(() => setActiveKpi('sales'), 10000);  // @50% - cursor hits Sales KPI
+      setTimeout(() => setShowTooltip(true), 12500);   // @62% - cursor hovers Chart
+      setTimeout(() => setShowTooltip(false), 15000);  // @75% - cursor leaves Chart
+      setTimeout(() => setActiveKpi('revenue'), 18000);// @90% - cursor hits Revenue KPI
     };
 
     syncState();
-    const interval = setInterval(syncState, 16000);
+    const interval = setInterval(syncState, 20000);
     return () => clearInterval(interval);
   }, []);
 
@@ -132,7 +142,7 @@ export function AnimatedDashboardMock() {
       >
         <MousePointer2 className="w-6 h-6 text-black dark:text-white fill-white dark:fill-black -rotate-12" strokeWidth={1.5} />
         <div className="bg-indigo-500 text-white text-[11px] px-2.5 py-0.5 rounded-full font-semibold shadow-md ml-6 mt-1 border border-indigo-400">
-          Kavya (AI)
+          Kavya
         </div>
       </motion.div>
 
@@ -146,22 +156,79 @@ export function AnimatedDashboardMock() {
           </div>
         </div>
         <div className="hidden sm:flex items-center gap-2">
-          <motion.div 
-            animate={{ backgroundColor: filterActive ? 'rgba(99, 102, 241, 0.1)' : 'transparent' }}
-            className="px-3 py-1.5 rounded-md border border-border bg-background text-xs font-medium text-muted-foreground shadow-sm hover:text-foreground transition-colors cursor-pointer"
-          >
-            Last 30 Days
-          </motion.div>
-          <motion.div 
-            animate={{ 
-              backgroundColor: filterActive ? 'rgba(99, 102, 241, 0.1)' : 'transparent',
-              borderColor: filterActive ? 'rgba(99, 102, 241, 0.3)' : 'rgba(255,255,255,0.1)' 
-            }}
-            className="px-3 py-1.5 rounded-md border border-border bg-background text-xs font-medium text-muted-foreground shadow-sm flex items-center gap-2 hover:text-foreground transition-colors cursor-pointer"
-          >
-            <Filter className="w-3.5 h-3.5" />
-            Filters
-          </motion.div>
+          {/* Date Range Dropdown Component */}
+          <div className="relative">
+            <motion.div 
+              animate={{ 
+                backgroundColor: dateActive ? 'rgba(99, 102, 241, 0.1)' : 'transparent',
+                borderColor: dateActive ? 'rgba(99, 102, 241, 0.3)' : 'rgba(255,255,255,0.1)'
+              }}
+              className="px-3 py-1.5 rounded-md border border-border bg-background text-xs font-medium text-muted-foreground shadow-sm hover:text-foreground transition-colors cursor-pointer"
+            >
+              Last 30 Days
+            </motion.div>
+            <AnimatePresence>
+              {dateActive && (
+                <motion.div
+                  initial={{ opacity: 0, y: 5, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 5, scale: 0.95 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute top-full mt-1.5 right-0 w-36 bg-background border border-border rounded-lg shadow-lg z-30 p-1 flex flex-col"
+                >
+                  <div className="px-2 py-1.5 text-xs text-muted-foreground hover:bg-muted/50 rounded-md cursor-pointer transition-colors">Last 7 Days</div>
+                  <div className="px-2 py-1.5 text-xs text-indigo-500 font-medium bg-indigo-500/10 rounded-md cursor-pointer transition-colors flex items-center justify-between">
+                    Last 30 Days
+                    <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
+                  </div>
+                  <div className="px-2 py-1.5 text-xs text-muted-foreground hover:bg-muted/50 rounded-md cursor-pointer transition-colors">Year to Date</div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* Filters Dropdown Component */}
+          <div className="relative">
+            <motion.div 
+              animate={{ 
+                backgroundColor: filterActive ? 'rgba(99, 102, 241, 0.1)' : 'transparent',
+                borderColor: filterActive ? 'rgba(99, 102, 241, 0.3)' : 'rgba(255,255,255,0.1)' 
+              }}
+              className="px-3 py-1.5 rounded-md border border-border bg-background text-xs font-medium text-muted-foreground shadow-sm flex items-center gap-2 hover:text-foreground transition-colors cursor-pointer"
+            >
+              <Filter className="w-3.5 h-3.5" />
+              Filters
+            </motion.div>
+            <AnimatePresence>
+              {filterActive && (
+                <motion.div
+                  initial={{ opacity: 0, y: 5, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 5, scale: 0.95 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute top-full mt-1.5 right-0 w-44 bg-background border border-border rounded-lg shadow-lg z-30 p-2 flex flex-col gap-2"
+                >
+                  <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider px-1">Channels</span>
+                  <div className="flex items-center gap-2 px-1">
+                    <div className="w-3 h-3 rounded-sm bg-indigo-500 flex items-center justify-center">
+                      <svg className="w-2 h-2 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                    </div>
+                    <span className="text-xs font-medium text-foreground">Online Store</span>
+                  </div>
+                  <div className="flex items-center gap-2 px-1">
+                    <div className="w-3 h-3 rounded-sm bg-indigo-500 flex items-center justify-center">
+                      <svg className="w-2 h-2 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                    </div>
+                    <span className="text-xs font-medium text-foreground">Point of Sale</span>
+                  </div>
+                  <div className="flex items-center gap-2 px-1 opacity-50">
+                    <div className="w-3 h-3 rounded-sm border border-border" />
+                    <span className="text-xs font-medium text-foreground">Wholesale</span>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
       </div>
 
