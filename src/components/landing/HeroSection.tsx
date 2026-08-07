@@ -85,30 +85,7 @@ const BrainIcon = () => (
   </svg>
 );
 
-const BrainIcon = () => (
-  <svg 
-    viewBox="0 0 24 24" 
-    fill="none" 
-    xmlns="http://www.w3.org/2000/svg" 
-    className="inline-block w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 shrink-0 mx-1 md:mx-2 text-indigo-500 stroke-current animate-pulse" 
-    style={{ animationDuration: '4s' }}
-  >
-    <path 
-      d="M9.5 20H14.5M12 20V16M12 16C8.68629 16 6 13.3137 6 10C6 6.68629 8.68629 4 12 4C15.3137 4 18 6.68629 18 10C18 13.3137 15.3137 16 12 16ZM12 4V2" 
-      strokeWidth="1.25" 
-      strokeLinecap="round" 
-      strokeLinejoin="round" 
-      opacity="0.9"
-    />
-    <path 
-      d="M6 10H3M21 10H18M7.75736 14.2426L5.63604 16.364M18.364 16.364L16.2426 14.2426M16.2426 5.75736L18.364 3.63604M5.63604 3.63604L7.75736 5.75736" 
-      strokeWidth="1.25" 
-      strokeLinecap="round" 
-      strokeLinejoin="round" 
-      opacity="0.5"
-    />
-  </svg>
-);
+
 
 export function HeroSection() {
   const { scrollY } = useScroll();
