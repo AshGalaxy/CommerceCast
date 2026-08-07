@@ -5,7 +5,7 @@ import { ArrowRight, ChevronDown, BarChart2, Package, TrendingUp, Filter, Dollar
 import { PiShoppingBagDuotone, PiBrainDuotone } from 'react-icons/pi';
 import { AnimatedDashboardMock } from './AnimatedDashboardMock';
 import { Button } from '@/components/ui/button';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { motion, useScroll, useTransform, AnimatePresence, useSpring } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 const BRANDS = ['Shopify', 'Amazon', 'WooCommerce', 'Magento', 'BigCommerce'];
@@ -69,14 +69,21 @@ export function HeroSection() {
     offset: ["start start", "end end"]
   });
 
-  // Dashboard expansions
-  const mockWidth = useTransform(scrollYProgress, [0, 0.2], ["1024px", "calc(100vw - 48px)"]);
-  const mockHeight = useTransform(scrollYProgress, [0, 0.2], ["550px", "calc(100vh - 48px)"]);
-  const mockBorderRadius = useTransform(scrollYProgress, [0, 0.2], ["20px", "20px"]);
-  const mockMaskOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+  // Add a spring physics layer to make the scroll incredibly smooth and fluid
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  // Dashboard expansions over a longer scroll duration [0, 0.35]
+  const mockWidth = useTransform(smoothProgress, [0, 0.35], ["1024px", "calc(100vw - 128px)"]);
+  const mockHeight = useTransform(smoothProgress, [0, 0.35], ["550px", "calc(100vh - 96px)"]);
+  const mockBorderRadius = useTransform(smoothProgress, [0, 0.35], ["20px", "24px"]);
+  const mockMaskOpacity = useTransform(smoothProgress, [0, 0.35], [1, 0]);
   
   // Shift it down slightly to center it when it expands to full screen
-  const mockY = useTransform(scrollYProgress, [0, 0.2], [0, 24]); 
+  const mockY = useTransform(smoothProgress, [0, 0.35], [0, 24]); 
 
   return (
     <div className="relative w-full bg-background overflow-hidden">
@@ -202,7 +209,7 @@ export function HeroSection() {
                 <div className="w-16" />
               </div>
 
-              <AnimatedDashboardMock scrollProgress={scrollYProgress} />
+              <AnimatedDashboardMock scrollProgress={smoothProgress} />
             </motion.div>
           </motion.div>
           
