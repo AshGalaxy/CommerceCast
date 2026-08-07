@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Filter, DollarSign, ShoppingCart, Activity, Users, MousePointer2, TrendingUp } from 'lucide-react';
+import { useState } from 'react';
+import { motion, AnimatePresence, useMotionValueEvent, MotionValue, useTransform } from 'framer-motion';
+import { Filter, DollarSign, ShoppingCart, Activity, Users, MousePointer2, TrendingUp, Loader2, Database, LayoutDashboard, Target } from 'lucide-react';
 
 const KPIS = [
   { id: 'revenue', title: "Total Revenue", value: "₹24,590,200", trend: "+14.2%", positive: true, icon: <DollarSign className="w-4 h-4 text-blue-500" /> },
@@ -58,70 +58,65 @@ const CATEGORIES = {
   ]
 };
 
-// Advanced Cursor Animation Sequence (20s timeline)
-const cursorSequence = {
-  x: [
-    100, // 0: start
-    750, // 1: move to Date button
-    750, // 2: click Date button
-    750, // 3: wait for Date dropdown
-    850, // 4: move to Filters button
-    850, // 5: click Filters button
-    850, // 6: wait for Filters dropdown
-    350, // 7: move to Sales KPI
-    350, // 8: click wait
-    600, // 9: move to Chart line hover
-    650, // 10: slide across chart
-    100, // 11: move to Revenue KPI
-    100, // 12: click wait
-  ],
-  y: [
-    400, // 0: start
-    30,  // 1: Date button
-    30,  // 2: click Date
-    100, // 3: drop down interaction (hover over dropdown)
-    30,  // 4: Filters button
-    30,  // 5: click Filters
-    100, // 6: drop down interaction
-    150, // 7: Sales KPI
-    150, // 8: click wait
-    300, // 9: Chart line hover
-    280, // 10: slide across chart
-    150, // 11: Revenue KPI
-    150, // 12: click wait
-  ],
-  opacity: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-  scale:   [1, 1, 0.8, 1, 1, 0.8, 1, 1, 0.8, 1, 1, 1, 0.8], // simulate clicks
-  transition: {
-    duration: 20,
-    repeat: Infinity,
-    times: [0, 0.08, 0.10, 0.18, 0.26, 0.28, 0.36, 0.45, 0.5, 0.6, 0.7, 0.85, 0.9]
-  }
-};
-
-export function AnimatedDashboardMock() {
+export function AnimatedDashboardMock({ scrollProgress }: { scrollProgress?: MotionValue<number> }) {
   const [activeKpi, setActiveKpi] = useState('revenue');
   const [showTooltip, setShowTooltip] = useState(false);
   const [dateActive, setDateActive] = useState(false);
   const [filterActive, setFilterActive] = useState(false);
+  
+  // New States for "scrollytelling" UI panels
+  const [showSidebar, setShowSidebar] = useState(false);
+  const [showLoadingOverlay, setShowLoadingOverlay] = useState(false);
+  const [showDataSelection, setShowDataSelection] = useState(false);
 
-  // Sync state changes with the cursor's timeline (20s total)
-  useEffect(() => {
-    const syncState = () => {
-      setTimeout(() => setDateActive(true), 2000);     // @10% - cursor clicks Date
-      setTimeout(() => setDateActive(false), 4400);    // @22% - cursor leaves Date dropdown
-      setTimeout(() => setFilterActive(true), 5600);   // @28% - cursor clicks Filters
-      setTimeout(() => setFilterActive(false), 8000);  // @40% - cursor leaves Filters dropdown
-      setTimeout(() => setActiveKpi('sales'), 10000);  // @50% - cursor hits Sales KPI
-      setTimeout(() => setShowTooltip(true), 12500);   // @62% - cursor hovers Chart
-      setTimeout(() => setShowTooltip(false), 15000);  // @75% - cursor leaves Chart
-      setTimeout(() => setActiveKpi('revenue'), 18000);// @90% - cursor hits Revenue KPI
-    };
+  // Fallback to 0 if not provided
+  const progress = scrollProgress || new MotionValue();
 
-    syncState();
-    const interval = setInterval(syncState, 20000);
-    return () => clearInterval(interval);
-  }, []);
+  useMotionValueEvent(progress, "change", (latest) => {
+    // 0.2 to 0.3: loading data input mock
+    setShowDataSelection(latest > 0.22 && latest < 0.28);
+    setShowLoadingOverlay(latest > 0.28 && latest < 0.33);
+    
+    // Sidebar slides in at 0.75
+    setShowSidebar(latest > 0.75);
+    
+    // Timeline conversions for interactions
+    setDateActive(latest > 0.35 && latest < 0.42);
+    setFilterActive(latest > 0.45 && latest < 0.52);
+    
+    if (latest > 0.55 && latest < 0.8) {
+      setActiveKpi('sales');
+    } else {
+      setActiveKpi('revenue');
+    }
+    
+    setShowTooltip(latest > 0.65 && latest < 0.72);
+  });
+
+  // Cursor transforms mapped to scroll domain [0.2, 0.9]
+  const cursorX = useTransform(
+     progress, 
+     [0.34, 0.36, 0.4, 0.44, 0.46, 0.5, 0.54, 0.65, 0.7, 0.8, 0.82],
+     [100,  750,  750, 850,  850,  350, 350,  600,  650, 100, 100]
+  );
+  
+  const cursorY = useTransform(
+     progress, 
+     [0.34, 0.36, 0.4, 0.44, 0.46, 0.5, 0.54, 0.65, 0.7, 0.8, 0.82],
+     [400,  30,   100, 30,   100,  150, 150,  300,  280, 150, 150]
+  );
+  
+  const cursorOpacity = useTransform(
+     progress,
+     [0, 0.33, 0.34, 0.85, 0.86, 1],
+     [0, 0,    1,    1,    0,    0]
+  );
+  
+  const cursorScale = useTransform(
+     progress,
+     [0.36, 0.37, 0.38, 0.46, 0.47, 0.48, 0.54, 0.55, 0.56, 0.82, 0.83, 0.84],
+     [1,    0.8,  1,    1,    0.8,  1,    1,    0.8,  1,    1,    0.8,  1]
+  );
 
   const activePaths = CHART_PATHS[activeKpi as keyof typeof CHART_PATHS];
   const activeCategories = CATEGORIES[activeKpi as keyof typeof CATEGORIES];
@@ -131,13 +126,12 @@ export function AnimatedDashboardMock() {
       
       {/* Animated Cursor */}
       <motion.div
-        animate={{
-          x: cursorSequence.x,
-          y: cursorSequence.y,
-          opacity: cursorSequence.opacity,
-          scale: cursorSequence.scale
+        style={{
+          x: cursorX,
+          y: cursorY,
+          opacity: cursorOpacity,
+          scale: cursorScale
         }}
-        transition={cursorSequence.transition}
         className="absolute z-50 pointer-events-none flex flex-col items-center drop-shadow-xl"
       >
         <MousePointer2 className="w-6 h-6 text-black dark:text-white fill-white dark:fill-black -rotate-12" strokeWidth={1.5} />
@@ -371,6 +365,70 @@ export function AnimatedDashboardMock() {
           </div>
         </div>
       </div>
+      {/* Scrollytelling Overlays */}
+      <AnimatePresence>
+        {showDataSelection && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            className="absolute inset-0 z-40 bg-background/80 backdrop-blur-sm flex items-center justify-center"
+          >
+            <div className="bg-background border border-border p-8 rounded-xl shadow-2xl flex flex-col items-center gap-4 max-w-md text-center">
+              <Database className="w-12 h-12 text-indigo-500 mb-2" />
+              <h3 className="text-xl font-bold">Connecting Data Sources</h3>
+              <p className="text-muted-foreground text-sm">Selecting historical sales, inventory levels, and upcoming promotion schedules to build the forecasting model.</p>
+              <div className="w-full h-1.5 bg-muted mt-2 rounded-full overflow-hidden">
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: "100%" }}
+                  transition={{ duration: 1.5, ease: "linear" }}
+                  className="h-full bg-indigo-500"
+                />
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+        {showLoadingOverlay && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 z-40 bg-background/50 backdrop-blur-sm flex items-center justify-center"
+          >
+            <div className="flex items-center gap-3 bg-background border border-border px-6 py-4 rounded-full shadow-xl">
+              <Loader2 className="w-5 h-5 text-indigo-500 animate-spin" />
+              <span className="text-sm font-medium">Generating Forecasts...</span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Forecasting Sidebar Menu (slides in) */}
+      <motion.div
+        initial={{ x: '100%', opacity: 0 }}
+        animate={{ x: showSidebar ? 0 : '100%', opacity: showSidebar ? 1 : 0 }}
+        transition={{ type: 'spring', bounce: 0, duration: 0.6 }}
+        className="absolute top-0 right-0 h-full w-64 bg-background border-l border-border/50 shadow-2xl z-30 p-6 flex flex-col gap-6"
+      >
+        <h4 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">Forecasting</h4>
+        
+        <div className="flex flex-col gap-4">
+          <div className="flex items-center gap-3 p-3 rounded-lg bg-indigo-500/10 text-indigo-500 cursor-pointer">
+            <LayoutDashboard className="w-4 h-4" />
+            <span className="text-sm font-semibold">Overview</span>
+          </div>
+          <div className="flex items-center gap-3 p-3 rounded-lg text-muted-foreground hover:bg-muted cursor-pointer transition-colors">
+            <Target className="w-4 h-4" />
+            <span className="text-sm font-medium">Demand Planner</span>
+          </div>
+          <div className="flex items-center gap-3 p-3 rounded-lg text-muted-foreground hover:bg-muted cursor-pointer transition-colors">
+            <Database className="w-4 h-4" />
+            <span className="text-sm font-medium">Inventory Simulator</span>
+          </div>
+        </div>
+      </motion.div>
     </div>
   );
 }
