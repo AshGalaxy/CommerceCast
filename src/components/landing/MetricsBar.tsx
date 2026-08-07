@@ -62,6 +62,22 @@ export function MetricsBar() {
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-border/60 to-transparent" />
 
       <div className="container px-4">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-14"
+        >
+          <p className="text-[11px] uppercase tracking-[0.3em] text-primary font-semibold mb-5">
+            By the numbers
+          </p>
+          <h2 className="text-3xl md:text-4xl font-extrabold tracking-tighter font-headline leading-[1.06]">
+            Proven at scale
+          </h2>
+        </motion.div>
+
         <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-border/40">
           {metrics.map((m, i) => (
             <div key={i} className="flex flex-col items-center text-center px-6 py-4 gap-2">

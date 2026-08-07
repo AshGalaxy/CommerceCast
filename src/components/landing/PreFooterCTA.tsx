@@ -35,10 +35,10 @@ function Marquee({ items }: { items: string[] }) {
       <div ref={el} className="flex items-center gap-0 whitespace-nowrap will-change-transform">
         {doubled.map((item, i) => (
           <span key={i} className="flex items-center">
-            <span className="text-[13px] font-semibold uppercase tracking-[0.25em] text-white/25 px-8">
+            <span className="text-[13px] font-semibold uppercase tracking-[0.25em] text-muted-foreground/50 px-8">
               {item}
             </span>
-            <span className="w-1 h-1 rounded-full bg-white/15 shrink-0" />
+            <span className="w-1 h-1 rounded-full bg-muted-foreground/30 shrink-0" />
           </span>
         ))}
       </div>
@@ -74,13 +74,13 @@ export function PreFooterCTA() {
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="relative w-full overflow-hidden bg-[#080c14] text-white"
+      className="relative w-full overflow-hidden bg-background text-foreground border-t border-border/30"
       style={{ isolation: 'isolate' }}
     >
       {/* ── Grain texture overlay ── */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-10 opacity-[0.18] mix-blend-overlay"
+        className="pointer-events-none absolute inset-0 z-10 opacity-[0.06] dark:opacity-[0.18] mix-blend-overlay"
         style={{
           backgroundImage: GRAIN_SVG,
           backgroundSize: '200px 200px',
@@ -107,7 +107,7 @@ export function PreFooterCTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-xs uppercase tracking-[0.25em] text-white/40 font-semibold mb-6"
+          className="text-xs uppercase tracking-[0.25em] text-muted-foreground font-semibold mb-6"
         >
           Get started today
         </motion.p>
@@ -121,7 +121,7 @@ export function PreFooterCTA() {
         >
           Stop guessing.
           <br />
-          <span className="text-white/30">Start knowing.</span>
+          <span className="text-muted-foreground/60">Start knowing.</span>
         </motion.h2>
 
         <motion.p
@@ -129,7 +129,7 @@ export function PreFooterCTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-base text-white/50 max-w-xl mb-10 leading-relaxed"
+          className="text-base text-muted-foreground max-w-xl mb-10 leading-relaxed"
         >
           Join forward-thinking e-commerce teams using CommerceCast to make every inventory and pricing decision with confidence.
         </motion.p>
@@ -144,7 +144,7 @@ export function PreFooterCTA() {
           <Button
             asChild
             size="lg"
-            className="h-11 px-8 text-sm font-semibold bg-white text-black hover:bg-white/90 hover:-translate-y-0.5 transition-all shadow-2xl shadow-black/40"
+            className="h-11 px-8 text-sm font-semibold hover:-translate-y-0.5 transition-all shadow-xl"
           >
             <Link href="/signup">
               Start free trial
@@ -153,9 +153,9 @@ export function PreFooterCTA() {
           </Button>
           <Button
             asChild
-            variant="ghost"
+            variant="outline"
             size="lg"
-            className="h-11 px-8 text-sm font-semibold text-white/50 hover:text-white hover:bg-white/5 transition-all"
+            className="h-11 px-8 text-sm font-semibold transition-all bg-background border-border/50 hover:bg-muted/50"
           >
             <Link href="/login">Talk to sales →</Link>
           </Button>
@@ -163,7 +163,7 @@ export function PreFooterCTA() {
       </div>
 
       {/* ── Marquee strip ── */}
-      <div className="relative z-20 border-t border-white/[0.06] py-4 w-full">
+      <div className="relative z-20 border-t border-border/50 py-4 w-full bg-muted/10">
         <Marquee items={MARQUEE_ITEMS} />
       </div>
     </section>

@@ -10,24 +10,24 @@ const stats = [
     suffix: 'M',
     prefix: '$',
     label: 'Average annual revenue lost to stockouts per brand',
-    color: 'from-red-500/20 to-red-600/5',
-    textColor: 'text-red-400',
+    color: 'from-red-500/10 to-red-600/5',
+    textColor: 'text-red-500',
   },
   {
     value: 34,
     suffix: '%',
     prefix: '',
     label: 'Of promotions run at a net loss due to poor demand signals',
-    color: 'from-amber-500/20 to-amber-600/5',
-    textColor: 'text-amber-400',
+    color: 'from-amber-500/10 to-amber-600/5',
+    textColor: 'text-amber-500',
   },
   {
     value: 47,
     suffix: 'hrs',
     prefix: '',
     label: 'Ops team hours wasted per week on manual demand planning',
-    color: 'from-orange-500/20 to-orange-600/5',
-    textColor: 'text-orange-400',
+    color: 'from-orange-500/10 to-orange-600/5',
+    textColor: 'text-orange-500',
   },
 ];
 
@@ -76,9 +76,9 @@ export function PainSection() {
   const inView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <section className="relative w-full bg-[#080c14] text-white py-24 overflow-hidden">
+    <section className="relative w-full bg-muted/20 border-y border-border/30 text-foreground py-24 overflow-hidden">
       {/* Radial glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_50%,rgba(239,68,68,0.04),transparent)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_50%,rgba(239,68,68,0.03),transparent)]" />
 
       <div className="container px-4" ref={ref}>
         {/* Eyebrow */}
@@ -88,12 +88,12 @@ export function PainSection() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <p className="text-[11px] uppercase tracking-[0.3em] text-white/40 font-semibold mb-5">
+          <p className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground font-semibold mb-5">
             The cost of guessing
           </p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold font-headline tracking-tighter leading-[1.06] max-w-3xl mx-auto">
             What losing one Q4{' '}
-            <span className="text-white/30">really costs you.</span>
+            <span className="text-muted-foreground/60">really costs you.</span>
           </h2>
         </motion.div>
 
@@ -105,20 +105,20 @@ export function PainSection() {
               initial={{ opacity: 0, y: 24 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.55, delay: i * 0.12 }}
-              className={`relative rounded-2xl border border-white/[0.07] bg-gradient-to-br ${stat.color} p-8 flex flex-col gap-4 overflow-hidden`}
+              className={`relative rounded-2xl border border-border/50 bg-gradient-to-br ${stat.color} p-8 flex flex-col gap-4 overflow-hidden bg-background shadow-sm`}
             >
               {/* Corner glow */}
-              <div className="absolute -top-8 -right-8 w-32 h-32 rounded-full bg-white/[0.02] blur-2xl" />
+              <div className="absolute -top-8 -right-8 w-32 h-32 rounded-full bg-foreground/[0.02] blur-2xl" />
 
               <AnimatedNumber
                 value={stat.value}
                 prefix={stat.prefix}
                 suffix={stat.suffix}
-                color={`from-white to-white/60`}
+                color={`from-foreground to-foreground/60`}
                 inView={inView}
               />
 
-              <p className="text-sm text-white/45 leading-relaxed">
+              <p className="text-sm text-muted-foreground leading-relaxed">
                 {stat.label}
               </p>
             </motion.div>
@@ -130,19 +130,13 @@ export function PainSection() {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="text-center text-sm text-white/30 mt-12 max-w-lg mx-auto leading-relaxed"
+          className="text-center text-sm text-muted-foreground mt-12 max-w-lg mx-auto leading-relaxed"
         >
           These are not edge cases.{' '}
-          <span className="text-white/50 font-medium">They are your Monday morning.</span>
+          <span className="text-foreground font-medium">They are your Monday morning.</span>
         </motion.p>
       </div>
 
-      {/* Bottom fade into background */}
-      <div
-        aria-hidden
-        className="absolute bottom-0 inset-x-0 h-32 pointer-events-none"
-        style={{ background: 'linear-gradient(to bottom, transparent, hsl(var(--background)))' }}
-      />
     </section>
   );
 }
