@@ -95,8 +95,8 @@ function LoginForm() {
         className="w-full max-w-[440px] relative z-10"
       >
         <div className="mb-8 flex flex-col items-center text-center">
-          <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500/10 to-indigo-500/10 backdrop-blur-xl border border-blue-500/20 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),_0_8px_32px_rgba(59,130,246,0.15)] ring-1 ring-white/10">
-            <Logo className="h-8 w-8 text-primary drop-shadow-md" />
+          <div className="mb-6 flex items-center justify-center">
+            <Logo className="h-16 w-16 text-primary drop-shadow-lg" />
           </div>
           <h1 className="mb-2 text-3xl font-extrabold tracking-tight font-headline">
             Welcome back
