@@ -4,7 +4,7 @@ import './globals.css';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
 import { FirebaseClientProvider } from '@/firebase';
-import { ThemeProvider } from '@/contexts/theme-context';
+import { ThemeProvider } from 'next-themes';
 
 export const metadata: Metadata = {
   title: 'CommerceCast',
@@ -18,14 +18,25 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
-      <head>
-
-      </head>
+      <head />
       <body
         className={cn('min-h-screen bg-background font-body antialiased', GeistSans.variable)}
-        suppressHydrationWarning={true}
       >
-        <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+        {/*
+          next-themes ThemeProvider:
+          - attribute="class"   → toggles .dark / .light on <html>
+          - defaultTheme="dark" → dark by default
+          - enableSystem        → respects prefers-color-scheme on first visit
+          - disableTransitionOnChange → avoids colour-flash during switch
+          It injects a tiny blocking <script> before React hydrates, which
+          eliminates FOUC and hydration mismatches entirely.
+        */}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
           <FirebaseClientProvider>{children}</FirebaseClientProvider>
           <Toaster />
         </ThemeProvider>
