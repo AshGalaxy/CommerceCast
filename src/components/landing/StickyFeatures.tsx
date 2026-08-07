@@ -52,74 +52,67 @@ const features = [
 // ─── Visuals ──────────────────────────────────────────────────────────────────
 
 const VisualForecasting = () => {
-  const pts = [28, 44, 36, 60, 52, 74, 88, 102, 94, 116, 130, 148];
-  const W = 320, H = 160;
-  const max = Math.max(...pts), min = Math.min(...pts);
-  const sy = (v: number) => H - ((v - min) / (max - min)) * H * 0.82 - H * 0.06;
-  const sx = (i: number) => (i / (pts.length - 1)) * W;
-  const linePath = pts.map((v, i) => `${i === 0 ? 'M' : 'L'} ${sx(i)} ${sy(v)}`).join(' ');
-  const areaPath = `${linePath} L ${W} ${H} L 0 ${H} Z`;
-
   return (
-    <div className="w-full h-full flex flex-col p-5 bg-card border border-border/60 rounded-2xl shadow-2xl overflow-hidden relative">
-      <div className="absolute top-0 inset-x-0 h-0.5 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-t-2xl" />
-      <div className="flex justify-between items-center mb-4">
+    <div className="w-full h-full flex flex-col bg-card border border-border/60 shadow-xl overflow-hidden relative">
+      {/* Top Header */}
+      <div className="flex justify-between items-center px-4 py-3 border-b border-border/50 bg-muted/20">
         <div className="flex items-center gap-2">
-          <Activity className="w-4 h-4 text-blue-500" />
-          <span className="font-semibold text-sm">Demand Projection — Q4</span>
+          <Activity className="w-3.5 h-3.5 text-blue-500" />
+          <span className="font-semibold text-xs">Demand Projection</span>
         </div>
-        <span className="text-xs bg-blue-500/15 text-blue-400 px-2.5 py-1 rounded-full font-medium border border-blue-500/20">
-          95% confidence
-        </span>
+        <div className="flex items-center gap-2">
+          <span className="font-mono text-[9px] text-muted-foreground border border-border/50 px-1.5 py-0.5 rounded">Q4 2026</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+        </div>
       </div>
-      <div className="relative flex-1 mb-4">
-        <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-full overflow-visible">
-          <defs>
-            <linearGradient id="fg-area" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.22" />
-              <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
-            </linearGradient>
-            <linearGradient id="fg-line" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor="#60a5fa" />
-              <stop offset="100%" stopColor="#22d3ee" />
-            </linearGradient>
-          </defs>
-          <motion.path d={areaPath} fill="url(#fg-area)" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.15, duration: 0.5 }} />
-          <motion.path
-            d={linePath} fill="none" stroke="url(#fg-line)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
-            initial={{ pathLength: 0, opacity: 0 }} animate={{ pathLength: 1, opacity: 1 }} transition={{ duration: 1.0, ease: 'easeOut' }}
-          />
-          <motion.circle cx={sx(pts.length - 1)} cy={sy(pts[pts.length - 1])} r="5" fill="#22d3ee"
-            initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1.0, type: 'spring' }} />
-        </svg>
-        <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.1 }}
-          className="absolute right-0 top-0 text-[10px] font-bold text-cyan-400 bg-cyan-400/10 border border-cyan-400/20 px-2 py-0.5 rounded">
-          Forecast ↑
-        </motion.div>
-        {/* Fake Live Cursor */}
-        <motion.div
-          initial={{ opacity: 0, x: sx(pts.length - 4), y: sy(pts[pts.length - 4]) + 20 }}
-          animate={{ opacity: 1, x: sx(pts.length - 1) + 10, y: sy(pts[pts.length - 1]) + 10 }}
-          transition={{ delay: 1.5, duration: 1.2, ease: 'easeOut' }}
-          className="absolute z-10 drop-shadow-md text-emerald-400"
-        >
-          <MousePointer2 className="w-5 h-5 fill-emerald-500/20" />
-          <div className="bg-emerald-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded mt-1 shadow-sm">
-            AI Auto-Adjust
-          </div>
-        </motion.div>
+      
+      {/* Chart Area */}
+      <div className="flex-1 p-4 relative flex flex-col">
+        {/* Grid lines */}
+        <div className="absolute inset-0 p-4 pb-8 flex flex-col justify-between pointer-events-none opacity-20">
+          {[1,2,3,4].map(i => <div key={i} className="w-full border-t border-dashed border-border" />)}
+        </div>
+        
+        {/* Crisp Line Chart */}
+        <div className="flex-1 relative mt-2">
+          <svg viewBox="0 0 100 40" className="w-full h-full overflow-visible" preserveAspectRatio="none">
+            {/* Historical Data (Solid) */}
+            <path d="M 0 35 L 20 25 L 40 28 L 60 15" fill="none" stroke="currentColor" strokeWidth="1" strokeLinejoin="round" className="text-muted-foreground" />
+            {/* Forecast Data (Blue, Dashed/Solid) */}
+            <path d="M 60 15 L 80 8 L 100 2" fill="none" stroke="#3b82f6" strokeWidth="1.5" strokeLinejoin="round" strokeDasharray="2 2" />
+            
+            {/* Data Points */}
+            <circle cx="20" cy="25" r="1.5" fill="currentColor" className="text-muted-foreground" />
+            <circle cx="40" cy="28" r="1.5" fill="currentColor" className="text-muted-foreground" />
+            <circle cx="60" cy="15" r="2" fill="currentColor" />
+            <circle cx="80" cy="8" r="1.5" fill="#3b82f6" />
+            <circle cx="100" cy="2" r="2" fill="#3b82f6" />
+            
+            {/* Confidence Interval Polygon */}
+            <polygon points="60,15 80,4 100,-2 100,6 80,12 60,15" fill="#3b82f6" opacity="0.1" />
+          </svg>
+        </div>
+
+        {/* Axis Labels */}
+        <div className="flex justify-between text-[8px] font-mono text-muted-foreground mt-2">
+          <span>OCT</span><span>NOV</span><span>DEC</span>
+        </div>
       </div>
-      <div className="grid grid-cols-3 gap-2">
+
+      {/* Dense Metrics Footer */}
+      <div className="grid grid-cols-3 border-t border-border/50 divide-x divide-border/50 bg-muted/10">
         {[
-          { label: 'Avg Accuracy', value: '94.8%', color: 'text-blue-400' },
-          { label: 'MAPE', value: '3.2%', color: 'text-foreground' },
-          { label: 'SKUs Tracked', value: '2,840', color: 'text-blue-400' },
-        ].map((kpi, i) => (
-          <motion.div key={i} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 + i * 0.1 }}
-            className="rounded-lg bg-muted/60 px-3 py-2">
-            <div className="text-[10px] text-muted-foreground mb-0.5">{kpi.label}</div>
-            <div className={`text-sm font-bold ${kpi.color}`}>{kpi.value}</div>
-          </motion.div>
+          { label: 'ACCURACY', val: '95.2%', delta: '+1.2%' },
+          { label: 'MAPE', val: '4.1%', delta: '-0.3%' },
+          { label: 'VARIANCE', val: '±2.4k', delta: '' },
+        ].map(m => (
+          <div key={m.label} className="p-3 flex flex-col gap-1">
+            <span className="text-[9px] font-medium text-muted-foreground">{m.label}</span>
+            <div className="flex items-baseline gap-1.5">
+              <span className="font-mono text-xs font-semibold">{m.val}</span>
+              {m.delta && <span className={`text-[8px] font-semibold ${m.delta.startsWith('+') ? 'text-emerald-500' : 'text-emerald-500'}`}>{m.delta}</span>}
+            </div>
+          </div>
         ))}
       </div>
     </div>
@@ -128,104 +121,110 @@ const VisualForecasting = () => {
 
 const VisualInventory = () => {
   const skus = [
-    { name: 'Classic Tee — Black', stock: 1240, max: 2000, status: 'Healthy', barClass: 'from-emerald-400 to-green-300', dotClass: 'bg-emerald-400', textClass: 'text-emerald-400' },
-    { name: 'Denim Jacket — M', stock: 12, max: 200, status: 'Reorder Alert', barClass: 'from-red-500 to-orange-400', dotClass: 'bg-red-400', textClass: 'text-red-400' },
-    { name: 'Canvas Tote', stock: 450, max: 600, status: 'Healthy', barClass: 'from-emerald-400 to-green-300', dotClass: 'bg-emerald-400', textClass: 'text-emerald-400' },
-    { name: 'Hoodie — Slate', stock: 88, max: 300, status: 'Low Stock', barClass: 'from-amber-400 to-yellow-300', dotClass: 'bg-amber-400', textClass: 'text-amber-400' },
+    { id: 'SKU-892', name: 'Classic Tee — Blk', stock: 1240, max: 2000, status: 'Healthy', color: 'bg-emerald-500' },
+    { id: 'SKU-114', name: 'Denim Jacket — M', stock: 12, max: 200, status: 'Reorder', color: 'bg-red-500' },
+    { id: 'SKU-441', name: 'Canvas Tote', stock: 450, max: 600, status: 'Healthy', color: 'bg-emerald-500' },
+    { id: 'SKU-099', name: 'Hoodie — Slate', stock: 88, max: 300, status: 'Low', color: 'bg-amber-500' },
   ];
   return (
-    <div className="w-full h-full flex flex-col p-5 bg-card border border-border/60 rounded-2xl shadow-2xl overflow-hidden relative">
-      <div className="absolute top-0 inset-x-0 h-0.5 bg-gradient-to-r from-emerald-400 to-green-300 rounded-t-2xl" />
-      <div className="flex justify-between items-center mb-4">
+    <div className="w-full h-full flex flex-col bg-card border border-border/60 shadow-xl overflow-hidden relative">
+      <div className="flex justify-between items-center px-4 py-3 border-b border-border/50 bg-muted/20">
         <div className="flex items-center gap-2">
-          <Box className="w-4 h-4 text-emerald-500" />
-          <span className="font-semibold text-sm">SKU Health Dashboard</span>
+          <Box className="w-3.5 h-3.5 text-emerald-500" />
+          <span className="font-semibold text-xs">Inventory Optimization</span>
         </div>
-        <span className="text-xs bg-emerald-500/15 text-emerald-400 px-2.5 py-1 rounded-full font-medium border border-emerald-500/20">Live sync</span>
+        <span className="font-mono text-[9px] text-muted-foreground border border-border/50 px-1.5 py-0.5 rounded flex items-center gap-1">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" /> LIVE
+        </span>
       </div>
-      <div className="space-y-3 flex-1">
-        {skus.map((sku, i) => (
-          <motion.div key={i} initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.1 + 0.1 }}
-            className="rounded-xl border border-border/50 bg-muted/40 p-3">
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-2">
-                <span className={`w-1.5 h-1.5 rounded-full ${sku.dotClass} animate-pulse`} />
-                <span className="text-xs font-medium">{sku.name}</span>
+      
+      <div className="flex-1 p-0 overflow-hidden flex flex-col">
+        {/* Table Header */}
+        <div className="grid grid-cols-12 gap-2 px-4 py-2 border-b border-border/30 text-[9px] font-semibold text-muted-foreground bg-muted/5">
+          <div className="col-span-3">SKU ID</div>
+          <div className="col-span-5">PRODUCT</div>
+          <div className="col-span-4 text-right">STOCK</div>
+        </div>
+        {/* Table Rows */}
+        <div className="flex-1 flex flex-col divide-y divide-border/30">
+          {skus.map(sku => (
+            <div key={sku.id} className="grid grid-cols-12 gap-2 px-4 py-3 items-center hover:bg-muted/10 transition-colors">
+              <div className="col-span-3 font-mono text-[9px] text-muted-foreground">{sku.id}</div>
+              <div className="col-span-5 text-[11px] font-medium truncate pr-2">{sku.name}</div>
+              <div className="col-span-4 flex flex-col gap-1.5">
+                <div className="flex justify-between items-baseline text-[9px]">
+                  <span className={sku.status === 'Reorder' ? 'text-red-500 font-bold' : ''}>{sku.stock.toLocaleString()}</span>
+                  <span className="text-muted-foreground font-mono">/ {sku.max}</span>
+                </div>
+                <div className="w-full h-1 bg-muted rounded-full overflow-hidden">
+                  <div className={`h-full ${sku.color}`} style={{ width: `${(sku.stock/sku.max)*100}%` }} />
+                </div>
               </div>
-              <span className={`text-[9px] font-bold px-2 py-0.5 rounded border border-current/20 ${sku.textClass}`}>{sku.status}</span>
             </div>
-            <div className="w-full h-1.5 rounded-full bg-muted overflow-hidden">
-              <motion.div className={`h-full rounded-full bg-gradient-to-r ${sku.barClass}`}
-                initial={{ width: 0 }} animate={{ width: `${(sku.stock / sku.max) * 100}%` }}
-                transition={{ delay: i * 0.1 + 0.25, duration: 0.65, ease: 'easeOut' }} />
-            </div>
-            <div className="flex justify-between mt-1">
-              <span className="text-[9px] text-muted-foreground">{sku.stock.toLocaleString()} units</span>
-              <span className="text-[9px] text-muted-foreground">/ {sku.max.toLocaleString()}</span>
-            </div>
-          </motion.div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
 };
 
 const VisualPromotion = () => {
-  const scenarios = [
-    { label: 'Scenario A', title: '20% Off Storewide', volLift: 45, margin: -12, volBar: 'from-blue-400 to-blue-300', marginBar: 'from-red-400 to-red-300', isWinner: false },
-    { label: 'Scenario B', title: 'BOGO 50% Off', volLift: 65, margin: 2, volBar: 'from-purple-400 to-pink-300', marginBar: 'from-emerald-400 to-green-300', isWinner: true },
-  ];
   return (
-    <div className="w-full h-full flex flex-col p-5 bg-card border border-border/60 rounded-2xl shadow-2xl overflow-hidden relative">
-      <div className="absolute top-0 inset-x-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-400 rounded-t-2xl" />
-      <div className="flex justify-between items-center mb-4">
+    <div className="w-full h-full flex flex-col bg-card border border-border/60 shadow-xl overflow-hidden relative">
+      <div className="flex justify-between items-center px-4 py-3 border-b border-border/50 bg-muted/20">
         <div className="flex items-center gap-2">
-          <Percent className="w-4 h-4 text-purple-500" />
-          <span className="font-semibold text-sm">A/B Promo Simulator</span>
+          <Percent className="w-3.5 h-3.5 text-purple-500" />
+          <span className="font-semibold text-xs">A/B Scenario Simulator</span>
         </div>
-        <span className="text-xs bg-purple-500/15 text-purple-400 px-2.5 py-1 rounded-full font-medium border border-purple-500/20">2 variants</span>
+        <div className="flex items-center gap-1">
+          <span className="font-mono text-[9px] text-muted-foreground border border-border/50 px-1.5 py-0.5 rounded">2 VARIANTS</span>
+        </div>
       </div>
-      <div className="flex flex-col gap-3 flex-1">
-        {scenarios.map((s, i) => (
-          <motion.div key={i} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.15 + 0.15 }}
-            className={`flex-1 rounded-xl border p-3.5 relative overflow-hidden ${s.isWinner ? 'border-purple-500/40 bg-purple-500/5' : 'border-border/50 bg-muted/40'}`}>
-            {s.isWinner && (
-              <div className="absolute top-0 right-0 bg-gradient-to-l from-purple-500 to-pink-500 text-white text-[8px] font-bold px-2.5 py-1 rounded-bl-xl">WINNER</div>
-            )}
-            <div className="text-[10px] text-muted-foreground mb-0.5">{s.label}</div>
-            <div className={`font-bold text-sm mb-3 ${s.isWinner ? 'text-purple-300' : ''}`}>{s.title}</div>
-            <div className="space-y-2">
-              <div>
-                <div className="flex justify-between text-[10px] mb-1">
-                  <span className="text-muted-foreground">Volume Lift</span>
-                  <span className="text-green-400 font-bold">+{s.volLift}%</span>
-                </div>
-                <div className="w-full h-1.5 rounded-full bg-muted overflow-hidden">
-                  <motion.div className={`h-full rounded-full bg-gradient-to-r ${s.volBar}`}
-                    initial={{ width: 0 }} animate={{ width: `${s.volLift}%` }}
-                    transition={{ delay: i * 0.15 + 0.4, duration: 0.6, ease: 'easeOut' }} />
-                </div>
-              </div>
-              <div>
-                <div className="flex justify-between text-[10px] mb-1">
-                  <span className="text-muted-foreground">Margin Impact</span>
-                  <span className={`font-bold ${s.margin >= 0 ? 'text-green-400' : 'text-red-400'}`}>{s.margin >= 0 ? '+' : ''}{s.margin}%</span>
-                </div>
-                <div className="w-full h-1.5 rounded-full bg-muted overflow-hidden">
-                  <motion.div className={`h-full rounded-full bg-gradient-to-r ${s.marginBar}`}
-                    initial={{ width: 0 }} animate={{ width: `${Math.abs(s.margin) * 4}%` }}
-                    transition={{ delay: i * 0.15 + 0.6, duration: 0.6, ease: 'easeOut' }} />
-                </div>
-              </div>
+      
+      <div className="flex-1 p-4 flex flex-col gap-4">
+        {/* Scenario A */}
+        <div className="border border-border/50 rounded-md p-3 relative bg-muted/5">
+          <div className="flex justify-between items-start mb-3">
+            <div>
+              <div className="font-mono text-[9px] text-muted-foreground mb-1">SCENARIO A</div>
+              <div className="text-xs font-semibold">20% Off Storewide</div>
             </div>
-          </motion.div>
-        ))}
+            <span className="text-[9px] font-bold text-red-500 bg-red-500/10 px-1.5 py-0.5 rounded border border-red-500/20">-12% Margin</span>
+          </div>
+          <div className="flex items-end gap-2">
+            <div className="w-full bg-muted h-1.5 rounded-sm overflow-hidden flex">
+              <div className="h-full bg-blue-500" style={{ width: '45%' }} />
+            </div>
+            <span className="font-mono text-[10px] font-medium whitespace-nowrap">+45% Vol</span>
+          </div>
+        </div>
+
+        {/* Scenario B (Winner) */}
+        <div className="border border-purple-500/30 rounded-md p-3 relative bg-purple-500/5 shadow-inner">
+          <div className="absolute -top-2.5 right-3 bg-purple-500 text-white text-[8px] font-bold px-2 py-0.5 rounded-sm">
+            RECOMMENDED
+          </div>
+          <div className="flex justify-between items-start mb-3">
+            <div>
+              <div className="font-mono text-[9px] text-purple-500/70 mb-1">SCENARIO B</div>
+              <div className="text-xs font-semibold">BOGO 50% Off</div>
+            </div>
+            <span className="text-[9px] font-bold text-emerald-500 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">+2% Margin</span>
+          </div>
+          <div className="flex items-end gap-2">
+            <div className="w-full bg-muted h-1.5 rounded-sm overflow-hidden flex">
+              <div className="h-full bg-purple-500" style={{ width: '65%' }} />
+            </div>
+            <span className="font-mono text-[10px] whitespace-nowrap text-purple-600 dark:text-purple-400 font-bold">+65% Vol</span>
+          </div>
+        </div>
       </div>
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9 }}
-        className="mt-3 rounded-lg bg-muted/60 px-3.5 py-2.5 flex justify-between items-center">
-        <span className="text-[10px] text-muted-foreground">Net Revenue Delta (BOGO vs. Flat)</span>
-        <span className="text-sm font-bold text-emerald-400">+$14,200 est.</span>
-      </motion.div>
+      
+      {/* Bottom Impact */}
+      <div className="bg-emerald-500/10 border-t border-emerald-500/20 p-3 flex justify-between items-center">
+        <span className="text-[10px] font-medium text-emerald-600 dark:text-emerald-400">Net Revenue Delta (Est.)</span>
+        <span className="font-mono text-xs font-bold text-emerald-600 dark:text-emerald-400">+$14,200</span>
+      </div>
     </div>
   );
 };

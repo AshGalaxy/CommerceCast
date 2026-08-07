@@ -43,6 +43,36 @@ function Typewriter() {
   );
 }
 
+const ECommerceIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="inline-block w-10 h-10 -mt-2 mx-2 text-blue-500 drop-shadow-[0_0_12px_rgba(59,130,246,0.5)]">
+    <path d="M4 8 L12 4 L20 8 L20 16 L12 20 L4 16 Z" stroke="url(#hero-grad-e)" strokeWidth="1.5" strokeLinejoin="round" />
+    <path d="M4 8 L12 12 L20 8 M12 12 L12 20" stroke="url(#hero-grad-e)" strokeWidth="1.5" strokeLinejoin="round" opacity="0.6" />
+    <circle cx="12" cy="4" r="1.5" fill="currentColor" />
+    <circle cx="20" cy="8" r="1.5" fill="currentColor" opacity="0.5" />
+    <circle cx="12" cy="20" r="1.5" fill="currentColor" />
+    <circle cx="4" cy="8" r="1.5" fill="currentColor" opacity="0.5" />
+    <defs>
+      <linearGradient id="hero-grad-e" x1="0" y1="0" x2="1" y2="1">
+        <stop stopColor="currentColor" />
+        <stop offset="1" stopColor="currentColor" stopOpacity="0.2" />
+      </linearGradient>
+    </defs>
+  </svg>
+);
+
+const BrainIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="inline-block w-10 h-10 -mt-2 mx-2 text-indigo-500 drop-shadow-[0_0_12px_rgba(99,102,241,0.5)] animate-pulse" style={{ animationDuration: '3s' }}>
+    <circle cx="12" cy="12" r="4" fill="currentColor" opacity="0.1" />
+    <circle cx="12" cy="12" r="2" fill="currentColor" />
+    <circle cx="6" cy="7" r="1.5" fill="currentColor" opacity="0.6" />
+    <circle cx="18" cy="7" r="1.5" fill="currentColor" opacity="0.6" />
+    <circle cx="7" cy="18" r="1.5" fill="currentColor" opacity="0.6" />
+    <circle cx="17" cy="18" r="1.5" fill="currentColor" opacity="0.6" />
+    <path d="M7 8 L11 11 M17 8 L13 11 M8 17 L11 13 M16 17 L13 13" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.3" />
+    <path d="M6 7 L18 7" stroke="currentColor" strokeWidth="1" strokeDasharray="2 2" opacity="0.1" />
+  </svg>
+);
+
 export function HeroSection() {
   const { scrollY } = useScroll();
   const heroOpacity = useTransform(scrollY, [0, 600], [1, 0]);
@@ -93,7 +123,7 @@ export function HeroSection() {
           transition={{ duration: 0.65, delay: 0.1 }}
           className="max-w-5xl text-4xl sm:text-5xl md:text-6xl lg:text-[5rem] font-extrabold tracking-tighter font-headline leading-[1.04]"
         >
-          The e-commerce brain
+          The <ECommerceIcon /> e-commerce brain <BrainIcon />
           <br />
           <span className="bg-clip-text text-transparent bg-gradient-to-br from-blue-500 via-primary to-indigo-600">
             that never sleeps.

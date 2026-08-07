@@ -85,8 +85,8 @@ function Navbar() {
         <div className="container px-4 flex items-center gap-8 w-full">
 
           {/* Logo Container with Premium Material Styling */}
-          <div className="flex items-center gap-2 shrink-0 px-2.5 py-1.5 rounded-lg border border-blue-500/20 bg-gradient-to-r from-blue-500/5 to-transparent backdrop-blur-md shadow-sm dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] ring-1 ring-white/10 dark:ring-white/5 hover:bg-blue-500/10 transition-colors cursor-pointer">
-            <Logo className="w-5 h-5 text-primary drop-shadow-sm" />
+          <div className="group flex items-center gap-2 shrink-0 px-2.5 py-1.5 rounded-lg border border-blue-500/20 bg-gradient-to-r from-blue-500/5 to-transparent backdrop-blur-md shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),_0_2px_4px_rgba(0,0,0,0.05)] ring-1 ring-white/10 dark:ring-white/5 hover:bg-gradient-to-br hover:from-blue-500/15 hover:to-indigo-500/10 hover:-translate-y-0.5 hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),_0_8px_24px_rgba(59,130,246,0.2)] transition-all duration-300 cursor-pointer">
+            <Logo className="w-5 h-5 text-primary drop-shadow-sm group-hover:scale-105 group-hover:drop-shadow-md transition-all duration-300" />
             <span className="text-[14px] font-bold font-headline tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70">CommerceCast</span>
           </div>
 
