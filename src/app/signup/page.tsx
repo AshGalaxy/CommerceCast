@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth, useUser } from '@/firebase';
 import { useEffect, useState, Suspense } from 'react';
 import { Logo } from '@/components/ui/Logo';
+import { LoadingScreen } from '@/components/ui/LoadingScreen';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
@@ -86,11 +87,7 @@ function SignupForm() {
   };
 
   if (isUserLoading || user) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-background">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
-      </div>
-    );
+    return <LoadingScreen />;
   }
 
   return (
@@ -195,11 +192,7 @@ function SignupForm() {
 
 export default function SignupPage() {
   return (
-    <Suspense fallback={
-      <div className="flex min-h-screen items-center justify-center bg-background">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
-      </div>
-    }>
+    <Suspense fallback={<LoadingScreen />}>
       <SignupForm />
     </Suspense>
   );

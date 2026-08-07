@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Sparkles, Loader2, Sun, Moon, Menu, X, Github, Twitter, Linkedin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/ui/Logo';
+import { LoadingScreen } from '@/components/ui/LoadingScreen';
 import { useUser } from '@/firebase';
 import { useTheme } from '@/contexts/theme-context';
 import { Suspense, useState } from 'react';
@@ -379,13 +380,7 @@ function LandingPageContent() {
 
 export default function LandingPage() {
   return (
-    <Suspense
-      fallback={
-        <div className="flex items-center justify-center min-h-screen bg-background">
-          <Loader2 className="h-8 w-8 animate-spin text-primary" />
-        </div>
-      }
-    >
+    <Suspense fallback={<LoadingScreen />}>
       <LandingPageContent />
     </Suspense>
   );
