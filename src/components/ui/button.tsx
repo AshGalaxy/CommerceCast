@@ -9,14 +9,14 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 bg-[length:200%_auto] hover:bg-[position:right_center] transition-all duration-500 text-white shadow-[0_0_15px_rgba(79,70,229,0.3)] hover:shadow-[0_0_25px_rgba(79,70,229,0.5)] border border-white/10 hover:-translate-y-0.5",
+        default: "bg-gradient-to-b from-blue-500 to-blue-600 text-white shadow-[inset_0px_1px_0px_rgba(255,255,255,0.2),_0_1px_2px_rgba(0,0,0,0.1)] hover:shadow-[inset_0px_1px_0px_rgba(255,255,255,0.3),_0_4px_15px_rgba(59,130,246,0.4)] hover:from-blue-400 hover:to-blue-500 transition-all duration-300 border border-blue-700/50 hover:border-blue-500 hover:-translate-y-px",
         destructive:
-          "bg-gradient-to-r from-red-500 to-rose-600 text-white shadow-sm hover:shadow-red-500/25 hover:bg-[position:right_center] hover:-translate-y-0.5",
+          "bg-gradient-to-b from-red-500 to-red-600 text-white shadow-[inset_0px_1px_0px_rgba(255,255,255,0.2),_0_1px_2px_rgba(0,0,0,0.1)] hover:shadow-[inset_0px_1px_0px_rgba(255,255,255,0.3),_0_4px_15px_rgba(239,68,68,0.4)] hover:from-red-400 hover:to-red-500 border border-red-700/50 hover:-translate-y-px",
         outline:
-          "border border-border/60 bg-background/50 backdrop-blur-sm shadow-sm hover:border-blue-500/30 hover:bg-blue-500/5 hover:text-foreground hover:shadow-md hover:shadow-blue-500/10 hover:-translate-y-0.5",
+          "border border-border/60 bg-background/50 backdrop-blur-sm shadow-sm hover:border-blue-500/30 hover:bg-blue-500/5 hover:text-foreground hover:shadow-md hover:shadow-blue-500/10 hover:-translate-y-px",
         secondary:
-          "bg-secondary/50 backdrop-blur-sm border border-border/40 text-secondary-foreground shadow-sm hover:bg-secondary/80 hover:border-border/80 hover:-translate-y-0.5",
-        ghost: "hover:bg-blue-500/10 hover:text-blue-600 dark:hover:text-blue-400 transition-colors active:bg-blue-500/20",
+          "bg-secondary/50 backdrop-blur-sm border border-border/40 text-secondary-foreground shadow-sm hover:bg-secondary/80 hover:border-border/80 hover:-translate-y-px",
+        ghost: "hover:bg-foreground/5 hover:text-foreground dark:hover:bg-foreground/10 transition-colors active:bg-foreground/10",
         link: "text-primary underline-offset-4 hover:underline hover:text-blue-600 transition-colors",
       },
       size: {
