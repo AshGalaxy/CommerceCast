@@ -71,22 +71,26 @@ export function HeroSection() {
 
   // Add a spring physics layer to make the scroll incredibly smooth and fluid
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
+    stiffness: 70,
+    damping: 25,
     restDelta: 0.001
   });
 
-  // Dashboard expansions over a longer scroll duration [0, 0.35]
-  const mockWidth = useTransform(smoothProgress, [0, 0.35], ["1024px", "calc(100vw - 128px)"]);
-  const mockHeight = useTransform(smoothProgress, [0, 0.35], ["550px", "calc(100vh - 96px)"]);
-  const mockBorderRadius = useTransform(smoothProgress, [0, 0.35], ["20px", "24px"]);
-  const mockMaskOpacity = useTransform(smoothProgress, [0, 0.35], [1, 0]);
-  
-  // Shift it down slightly to center it when it expands to full screen
-  const mockY = useTransform(smoothProgress, [0, 0.35], [0, 24]); 
+  // 1. Header scroll away [0, 0.1]
+  const headerOpacity = useTransform(smoothProgress, [0, 0.1], [1, 0]);
+  const headerY = useTransform(smoothProgress, [0, 0.1], [0, -150]);
+
+  // 2. Dashboard scroll up into center [0, 0.1]
+  const dashboardY = useTransform(smoothProgress, [0, 0.1], ["35vh", "5vh"]);
+
+  // 3. Dashboard expansions over [0.1, 0.35]
+  const mockWidth = useTransform(smoothProgress, [0.1, 0.35], ["1024px", "calc(100vw - 128px)"]);
+  const mockHeight = useTransform(smoothProgress, [0.1, 0.35], ["550px", "calc(100vh - 96px)"]);
+  const mockBorderRadius = useTransform(smoothProgress, [0.1, 0.35], ["20px", "24px"]);
+  const mockMaskOpacity = useTransform(smoothProgress, [0.1, 0.35], [1, 0]);
 
   return (
-    <div className="relative w-full bg-background overflow-hidden">
+    <div className="relative w-full bg-background">
       
       {/* Aurora Gradient Background - fixed to viewport so it stays behind everything */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
@@ -103,81 +107,77 @@ export function HeroSection() {
         />
       </div>
 
-      {/* HEADER SECTION - Normal Document Flow */}
-      <section className="relative w-full flex flex-col items-center pt-28 pb-8 z-10">
-        <div className="container flex flex-col items-center text-center gap-8 px-4">
-          
-          {/* Eyebrow badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 rounded-full border border-blue-600/20 dark:border-blue-400/20 bg-blue-500/5 dark:bg-blue-500/10 px-4 py-1.5 text-[13px] font-semibold text-blue-700 dark:text-blue-300 backdrop-blur-xl shadow-[inset_0px_1px_0px_rgba(255,255,255,0.8),_0_4px_20px_rgba(59,130,246,0.15)] dark:shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1),_0_4px_20px_rgba(59,130,246,0.25)] ring-1 ring-black/5 dark:ring-white/5 cursor-default transition-all duration-300"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-500 dark:bg-blue-400 animate-pulse" />
-            AI Forecasting Engine B2.0 is now live — We are now in Beta
-          </motion.div>
-
-          {/* Headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.1 }}
-            className="flex flex-col items-center justify-center max-w-5xl text-4xl sm:text-5xl md:text-6xl lg:text-[5rem] font-extrabold tracking-tighter font-headline leading-[1.04]"
-          >
-            <span className="inline-flex items-center flex-wrap justify-center md:flex-nowrap">
-              The <ECommerceIcon /> e-commerce brain <BrainIcon />
-            </span>
-            <span className="bg-clip-text text-transparent bg-gradient-to-br from-blue-500 via-primary to-indigo-600 mt-2">
-              that never sleeps.
-            </span>
-          </motion.h1>
-
-          {/* Sub-headline with Typewriter */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.2 }}
-            className="flex flex-col md:flex-row items-center gap-2 text-lg sm:text-xl text-muted-foreground leading-relaxed"
-          >
-            <span>Connect your store in minutes.</span>
-            <Typewriter />
-          </motion.div>
-
-          {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.3 }}
-            className="flex flex-col sm:flex-row items-center gap-3 mt-2"
-          >
-            <Button asChild size="lg" className="font-semibold shadow-xl shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 transition-all duration-200">
-              <Link href="/signup">
-                Start free trial
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="font-medium text-foreground bg-background/50 backdrop-blur-sm border-border/50 hover:bg-muted/50 transition-all duration-200 shadow-sm">
-              <Link href="/login">Book a demo</Link>
-            </Button>
-          </motion.div>
-          
-        </div>
-      </section>
-
-      {/* DASHBOARD SCROLLYTELLING SECTION */}
+      {/* SINGLE UNIFIED SCROLLYTELLING CONTAINER */}
       <section ref={containerRef} className="relative w-full h-[400vh] z-20">
         
-        {/* Sticky Container */}
-        <div className="sticky top-0 h-screen w-full flex flex-col items-center pt-8 overflow-hidden">
+        {/* Sticky viewport frame */}
+        <div className="sticky top-0 h-screen w-full flex flex-col items-center overflow-hidden">
           
-          {/* Expanding Dashboard Mockup Card */}
+          {/* HEADER LAYER */}
           <motion.div
-            initial={{ opacity: 0, y: 60 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-            style={{ width: mockWidth, height: mockHeight, y: mockY }}
-            className="relative z-20 flex flex-col"
+            style={{ opacity: headerOpacity, y: headerY }}
+            className="absolute top-28 w-full flex flex-col items-center text-center gap-8 px-4 z-10 pointer-events-auto"
+          >
+            {/* Eyebrow badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2 rounded-full border border-blue-600/20 dark:border-blue-400/20 bg-blue-500/5 dark:bg-blue-500/10 px-4 py-1.5 text-[13px] font-semibold text-blue-700 dark:text-blue-300 backdrop-blur-xl shadow-[inset_0px_1px_0px_rgba(255,255,255,0.8),_0_4px_20px_rgba(59,130,246,0.15)] dark:shadow-[inset_0px_1px_0px_rgba(255,255,255,0.1),_0_4px_20px_rgba(59,130,246,0.25)] ring-1 ring-black/5 dark:ring-white/5 cursor-default transition-all duration-300"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-500 dark:bg-blue-400 animate-pulse" />
+              AI Forecasting Engine B2.0 is now live — We are now in Beta
+            </motion.div>
+
+            {/* Headline */}
+            <motion.h1
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.1 }}
+              className="flex flex-col items-center justify-center max-w-5xl text-4xl sm:text-5xl md:text-6xl lg:text-[5rem] font-extrabold tracking-tighter font-headline leading-[1.04]"
+            >
+              <span className="inline-flex items-center flex-wrap justify-center md:flex-nowrap">
+                The <ECommerceIcon /> e-commerce brain <BrainIcon />
+              </span>
+              <span className="bg-clip-text text-transparent bg-gradient-to-br from-blue-500 via-primary to-indigo-600 mt-2">
+                that never sleeps.
+              </span>
+            </motion.h1>
+
+            {/* Sub-headline with Typewriter */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.2 }}
+              className="flex flex-col md:flex-row items-center gap-2 text-lg sm:text-xl text-muted-foreground leading-relaxed"
+            >
+              <span>Connect your store in minutes.</span>
+              <Typewriter />
+            </motion.div>
+
+            {/* CTAs */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.3 }}
+              className="flex flex-col sm:flex-row items-center gap-3 mt-2"
+            >
+              <Button asChild size="lg" className="font-semibold shadow-xl shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 transition-all duration-200">
+                <Link href="/signup">
+                  Start free trial
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+              <Button asChild variant="outline" size="lg" className="font-medium text-foreground bg-background/50 backdrop-blur-sm border-border/50 hover:bg-muted/50 transition-all duration-200 shadow-sm">
+                <Link href="/login">Book a demo</Link>
+              </Button>
+            </motion.div>
+          </motion.div>
+
+          {/* DASHBOARD LAYER */}
+          <motion.div
+            style={{ width: mockWidth, height: mockHeight, y: dashboardY }}
+            className="absolute z-20 flex flex-col"
           >
             {/* Edge glow */}
             <div className="absolute -inset-1 bg-gradient-to-tr from-blue-500 to-indigo-600 rounded-[24px] blur-xl opacity-25 dark:opacity-40 pointer-events-none" />
